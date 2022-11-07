@@ -28,6 +28,6 @@
     "**/*.mjs"
   ],
   "exclude": [
-    "node_modules .next"
+    "node_modules"
   ]
 }
