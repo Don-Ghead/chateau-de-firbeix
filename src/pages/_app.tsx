@@ -8,6 +8,7 @@ import type { AppType } from 'next/app'
 import type { AppRouter } from '../server/router'
 import type { Session } from 'next-auth'
 import '../styles/globals.css'
+import AppBar from '../components/AppBar/AppBar'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -15,7 +16,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <main className='mx-auto flex min-h-screen flex-col items-center'>
+        <AppBar title={'Chateau de Firbeix'} />
+        <Component {...pageProps} />
+      </main>
     </SessionProvider>
   )
 }
