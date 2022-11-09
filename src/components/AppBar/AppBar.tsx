@@ -26,7 +26,7 @@ const NavItems = () => {
 
 const AppBar = ({ title }: IAppBarProps) => {
   return (
-    <ul className='sticky top-0 flex w-full items-center justify-center border-b-2 border-primary bg-tan py-3'>
+    <ul className='sticky top-0 z-20 flex w-full items-center justify-center border-b-2 border-primary bg-tan py-3'>
       <NavItems />
     </ul>
   )
