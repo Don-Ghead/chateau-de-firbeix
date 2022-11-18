@@ -1,4 +1,6 @@
-const Contact = () => {
+import { NextPage } from 'next'
+
+const Contact: NextPage = () => {
   return <>Contact us!</>
 }
 
