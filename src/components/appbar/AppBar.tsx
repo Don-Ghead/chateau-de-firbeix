@@ -1,9 +1,5 @@
 import { navConfig } from './navconfig'
 
-interface IAppBarProps {
-  title: string
-}
-
 const NavItems = () => {
   return (
     <>
@@ -24,7 +20,7 @@ const NavItems = () => {
   )
 }
 
-const AppBar = ({ title }: IAppBarProps) => {
+const AppBar = () => {
   return (
     <nav className='sticky top-0 z-20 w-full border-b-2 border-primary bg-tan py-3'>
       <ul className='flex items-center justify-center'>
