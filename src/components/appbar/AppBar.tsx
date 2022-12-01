@@ -1,4 +1,5 @@
 import { navConfig } from './navconfig'
+import { useEffect, useState } from 'react'
 
 const NavItems = () => {
   return (
@@ -21,8 +22,31 @@ const NavItems = () => {
 }
 
 const AppBar = () => {
+  const [lastScrollPos, setLastScrollPos] = useState(0)
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currScrollPos = window.scrollY
+      const visible = currScrollPos < lastScrollPos
+
+      console.log(visible)
+
+      setIsVisible(visible)
+      setLastScrollPos(currScrollPos)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollPos])
+
   return (
-    <nav className='sticky top-0 z-20 w-full border-b-2 border-primary bg-tan py-3'>
+    <nav
+      className={`fixed top-0 block ${
+        !isVisible ? '-top-52' : ''
+      } z-20 w-full border-b-2 border-primary bg-tan py-3 transition-all duration-500`}
+    >
       <ul className='flex items-center justify-center'>
         <NavItems />
       </ul>
