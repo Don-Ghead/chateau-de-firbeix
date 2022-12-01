@@ -8,7 +8,7 @@ interface IHomeContentSectionProps {
   contentOrder?: 'imageFirst' | 'descriptionFirst'
 }
 
-const HomeContentSection = ({
+const HorizontalContentArticle = ({
   image,
   imageDesc,
   description,
@@ -30,4 +30,4 @@ const HomeContentSection = ({
   )
 }
 
-export default HomeContentSection
+export default HorizontalContentArticle

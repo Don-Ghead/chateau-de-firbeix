@@ -3,7 +3,7 @@ import { Head, Html, Main, NextScript } from 'next/document'
 export const _document = () => {
   return (
     <>
-      <Html>
+      <Html className='scroll-smooth'>
         <Head>
           <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link

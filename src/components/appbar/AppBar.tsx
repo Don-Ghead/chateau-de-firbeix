@@ -45,7 +45,7 @@ const AppBar = () => {
     <nav
       className={`fixed top-0 block ${
         !isVisible ? '-top-52' : ''
-      } z-20 w-full border-b-2 border-primary bg-tan py-3 transition-all duration-500`}
+      } z-20 w-full border-b-2 border-primary bg-tan py-3 transition-all duration-700`}
     >
       <ul className='flex items-center justify-center'>
         <NavItems />

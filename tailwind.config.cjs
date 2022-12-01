@@ -11,7 +11,7 @@ module.exports = {
       },
       fontFamily: { primary: 'cenzel', title: 'Gwendolyn' },
       backgroundImage: {
-        'chateau-home': "url('~/public/images/countryside.jpg')",
+        'chateau-home': "url('~/public/images/chateau-homepage.jpeg')",
       },
     },
     borderColor: { primary: '#9A8C98' },
