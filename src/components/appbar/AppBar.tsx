@@ -1,5 +1,6 @@
 import { navConfig } from './navconfig'
-import { useEffect, useState } from 'react'
+import { MutableRefObject, RefObject, useEffect, useState } from 'react'
+import { IParallax } from '@react-spring/parallax'
 
 const NavItems = () => {
   return (
