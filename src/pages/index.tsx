@@ -46,7 +46,7 @@ const Home: NextPage = () => {
               paddingBottom: '1rem',
             }}
           >
-            <h1 className='font-title text-6xl italic text-primary'>
+            <h1 className='text-primary font-title text-6xl italic'>
               Le Château de Firbeix
             </h1>
           </ParallaxLayer>
@@ -54,9 +54,9 @@ const Home: NextPage = () => {
             <section
               aria-label='overview of the chateau'
               id='overview'
-              className='flex h-full w-full flex-col items-center gap-10 bg-tan'
+              className='bg-tan flex h-full w-full flex-col items-center gap-10'
             >
-              <h2 className='pt-8 font-title text-6xl italic text-primary'>
+              <h2 className='text-primary pt-8 font-title text-6xl italic'>
                 Chez Nous
               </h2>
               <HorizontalContentArticle

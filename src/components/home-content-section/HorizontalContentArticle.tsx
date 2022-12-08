@@ -23,7 +23,7 @@ const HorizontalContentArticle = ({
     <article aria-label={ariaLabel} className='flex items-center px-6'>
       {contentOrder === 'imageFirst' && <ImageSection />}
       <div className='flex-2 flex justify-center text-center'>
-        <p className='w-3/4 font-primary text-xl text-primary'>{description}</p>
+        <p className='text-primary w-3/4 font-primary text-xl'>{description}</p>
       </div>
       {contentOrder === 'descriptionFirst' && <ImageSection />}
     </article>
