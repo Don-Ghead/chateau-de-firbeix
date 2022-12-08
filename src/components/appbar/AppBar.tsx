@@ -1,6 +1,5 @@
 import { navConfig } from './navconfig'
-import { MutableRefObject, RefObject, useEffect, useState } from 'react'
-import { IParallax } from '@react-spring/parallax'
+import { useEffect, useState } from 'react'
 
 const NavItems = () => {
   return (
@@ -9,7 +8,7 @@ const NavItems = () => {
         return (
           <li className='mr-6' key={`${displayText}`}>
             <a
-              className='font-primary text-2xl text-primary hover:text-secondary'
+              className='text-primary hover:text-secondary font-primary text-2xl'
               onClick={onClick}
               href={navigationPath}
             >
@@ -46,7 +45,7 @@ const AppBar = () => {
     <nav
       className={`fixed top-0 block ${
         !isVisible ? '-top-52' : ''
-      } z-20 w-full border-b-2 border-primary bg-tan py-3 transition-all duration-700`}
+      } z-20 w-full border-b-2 border-b-slate-300 bg-slate-100 py-3 transition-all duration-700`}
     >
       <ul className='flex items-center justify-center'>
         <NavItems />

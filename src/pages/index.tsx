@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         <Parallax pages={2} ref={ref} config={{ ...config.stiff, clamp: true }}>
           <ParallaxLayer
             offset={0}
-            speed={0.2}
+            speed={0.001}
             style={{
               backgroundImage: `url(${chateauHomepage.src})`,
               backgroundSize: 'cover',

@@ -1,21 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
-  theme: {
-    extend: {
-      colors: {
-        dark: '#22223B',
-        tan: '#F2E9E4',
-        light: '#9A8C98',
-        beige: '#C9ADA7',
-      },
-      fontFamily: { primary: 'cenzel', title: 'Gwendolyn' },
-      backgroundImage: {
-        'chateau-home': "url('~/public/images/chateau-homepage.jpeg')",
-      },
+    content: ['./src/**/*.{js,ts,jsx,tsx}'],
+    theme: {
+        extend: {
+            fontFamily: {primary: 'cenzel', title: 'Gwendolyn'},
+            backgroundImage: {
+                'chateau-home': "url('~/public/images/chateau-homepage.jpeg')",
+            },
+        },
     },
-    borderColor: { primary: '#9A8C98' },
-    textColor: { primary: '#4A4E69', secondary: '#9A8C98' },
-  },
-  plugins: [],
+    plugins: [],
 }
