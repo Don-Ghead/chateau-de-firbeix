@@ -10,6 +10,7 @@ import { images } from '../components/image-gallery'
 import HorizontalDivider from '../components/horizontal-divider/HorizontalDivider'
 import { IParallax, Parallax, ParallaxLayer } from '@react-spring/parallax'
 import { useRef } from 'react'
+import { config } from '@react-spring/core'
 
 /**
  * TODO - Make appbar work with parallax container
@@ -25,10 +26,10 @@ const Home: NextPage = () => {
       {/*  <div className='h-screen w-full bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat' />*/}
       {/*</header>*/}
       <main>
-        <Parallax pages={2} ref={ref}>
+        <Parallax pages={2} ref={ref} config={{ ...config.stiff, clamp: true }}>
           <ParallaxLayer
             offset={0}
-            speed={-0.8}
+            speed={0.2}
             style={{
               backgroundImage: `url(${chateauHomepage.src})`,
               backgroundSize: 'cover',
@@ -37,7 +38,7 @@ const Home: NextPage = () => {
           />
           <ParallaxLayer
             offset={0}
-            speed={0.6}
+            speed={0}
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -49,7 +50,7 @@ const Home: NextPage = () => {
               Le Château de Firbeix
             </h1>
           </ParallaxLayer>
-          <ParallaxLayer offset={1} factor={2}>
+          <ParallaxLayer offset={0.99} factor={3} speed={1}>
             <section
               aria-label='overview of the chateau'
               id='overview'
