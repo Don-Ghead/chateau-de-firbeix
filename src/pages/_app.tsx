@@ -9,6 +9,7 @@ import type { AppRouter } from '../server/router'
 import type { Session } from 'next-auth'
 import '../styles/globals.css'
 import 'react-image-gallery/styles/css/image-gallery.css'
+import AppBar from '../components/appbar/AppBar'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -16,6 +17,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
+      <AppBar />
       <Component {...pageProps} />
     </SessionProvider>
   )

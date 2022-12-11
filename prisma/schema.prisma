@@ -8,14 +8,28 @@ generator client {
 datasource db {
     provider = "sqlite"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.text annotations in model Account below
-    // Further reading: 
+    // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
 }
 
-model Example {
+model BlogImage {
     id String @id @default(cuid())
+    url String
+    createdAt DateTime @default(now())
+    blogId String
+    blog Blog @relation(fields: [blogId], references: [id])
+}
+
+model Blog {
+    id String @id @default(cuid())
+    title String
+    content String
+    images BlogImage[]
+    publishedDate DateTime @default(now())
+    // In the future we'll add blogs to a user but KISS for now
+    //    authorId String @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Necessary for Next auth

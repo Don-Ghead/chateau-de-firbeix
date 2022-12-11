@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import AppBar from '../components/appbar/AppBar'
 import naturalPark from '/public/images/naturalparc-lake.jpg'
 import chateauFront from '/public/images/chateau-front.jpg'
 import chateauHomepage from '/public/images/chateau-homepage.jpeg'
@@ -21,7 +20,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <AppBar />
       {/*<header>*/}
       {/*  <div className='h-screen w-full bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat' />*/}
       {/*</header>*/}

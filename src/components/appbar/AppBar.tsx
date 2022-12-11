@@ -43,12 +43,13 @@ const AppBar = () => {
 
   return (
     <nav
-      className={`fixed top-0 block ${
+      className={`sticky top-0 block ${
         !isVisible ? '-top-52' : ''
       } z-20 w-full border-b-2 border-b-slate-300 bg-slate-100 py-3 transition-all duration-700`}
     >
       <ul className='flex items-center justify-center'>
         <NavItems />
+        <button></button>
       </ul>
     </nav>
   )
