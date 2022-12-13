@@ -1,10 +1,14 @@
-import { createProtectedRouter } from './context'
+import { createRouter } from './context'
 import { ZBlog } from '../../types/zod-blogs'
+import * as trpc from '@trpc/server'
 
-export const blogRouter = createProtectedRouter()
+export const blogRouter = createRouter()
   .mutation('create', {
     input: ZBlog,
     async resolve({ ctx, input }) {
+      if (!ctx.session || !ctx.session.user) {
+        throw new trpc.TRPCError({ code: 'UNAUTHORIZED' })
+      }
       return await ctx.prisma.blog.create({
         data: {
           title: input.title,
