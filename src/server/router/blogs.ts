@@ -2,6 +2,8 @@ import { createRouter } from './context'
 import { ZBlog } from '../../types/zod-blogs'
 import * as trpc from '@trpc/server'
 
+const authorisedBlogCreators = ['luketparsons@gmail.com']
+
 export const blogRouter = createRouter()
   .mutation('create', {
     input: ZBlog,
@@ -9,10 +11,16 @@ export const blogRouter = createRouter()
       if (!ctx.session || !ctx.session.user) {
         throw new trpc.TRPCError({ code: 'UNAUTHORIZED' })
       }
+      if (
+        ctx.session.user?.email &&
+        !authorisedBlogCreators.includes(ctx.session.user?.email)
+      ) {
+        throw new trpc.TRPCError({ code: 'FORBIDDEN' })
+      }
       return await ctx.prisma.blog.create({
         data: {
           title: input.title,
-          content: input.description,
+          content: input.content,
         },
       })
     },

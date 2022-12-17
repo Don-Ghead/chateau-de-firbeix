@@ -1,25 +1,12 @@
-type TNavConfigCommon = {
+import { LinkProps } from 'next/link'
+
+type TNavConfigWithPath = {
   displayText: string
+  navigationPath: LinkProps['href']
+  onClick?: () => void
 }
 
-type TNavConfigWithPath = TNavConfigCommon & {
-  navigationPath: string
-  onClick?: never
-}
-
-type TNavConfigWithOnClick = TNavConfigCommon & {
-  navigationPath?: never
-  onClick: () => void
-}
-
-type TNavConfigWithBoth = TNavConfigCommon & {
-  navigationPath: string
-  onClick: () => void
-}
-
-export type TNavConfig = Array<
-  TNavConfigWithPath | TNavConfigWithOnClick | TNavConfigWithBoth
->
+export type TNavConfig = Array<TNavConfigWithPath>
 
 export const navConfig: TNavConfig = [
   {

@@ -1,21 +1,15 @@
 import { NextPage } from 'next'
 import { useState } from 'react'
-import { trpc } from '../utils/trpc'
+import { trpc } from '../../utils/trpc'
 
-const Blog: NextPage = () => {
+export const Create: NextPage = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
   const createBlog = trpc.useMutation(['blog.create'])
-  const { data: blogs, isLoading, error } = trpc.useQuery(['blog.getAll'])
-
-  if (isLoading) return <h2>Loading...</h2>
-
-  if (error) return <h2>Error Occurred</h2>
 
   return (
     <main>
-      <h1 className='pt-4 text-3xl'>Chateau de Firbeix Blogs</h1>
       <form
         onSubmit={event => {
           event.preventDefault()
@@ -23,7 +17,7 @@ const Blog: NextPage = () => {
           if (title && description) {
             createBlog.mutate({
               title: title,
-              description: description,
+              content: description,
               images: [],
             })
           }
@@ -49,17 +43,8 @@ const Blog: NextPage = () => {
         />
         <button type='submit'>Submit</button>
       </form>
-      <section>
-        {blogs &&
-          blogs.map(blog => (
-            <div key={blog.title}>
-              <h3>{blog.title}</h3>
-              <p>{blog.content}</p>
-            </div>
-          ))}
-      </section>
     </main>
   )
 }
 
-export default Blog
+export default Create
