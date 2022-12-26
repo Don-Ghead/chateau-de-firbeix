@@ -12,7 +12,7 @@ export const _document = () => {
             crossOrigin='anonymous'
           />
           <link
-            href='https://fonts.googleapis.com/css2?family=Cinzel&family=Gwendolyn:wght@700&display=swap'
+            href='https://fonts.googleapis.com/css2?family=Montserrat&family=Gwendolyn:wght@700&display=swap'
             rel='stylesheet'
           />
           <title>Chateau de Firbeix</title>

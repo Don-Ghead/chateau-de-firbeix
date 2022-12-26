@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import { trpc } from '../../utils/trpc'
 import { BlogSummary } from '../../components/blog-summary/BlogSummary'
+import Link from 'next/link'
 
 const Blog: NextPage = () => {
   const { data: blogs, isLoading, error } = trpc.useQuery(['blog.getAll'])
@@ -16,7 +17,9 @@ const Blog: NextPage = () => {
       </h1>
       {
         <section aria-label='admin controls'>
-          <button>Create</button>
+          <button>
+            <Link href={`blog/create`}>Create</Link>
+          </button>
         </section>
       }
       <section

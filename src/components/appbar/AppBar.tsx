@@ -44,8 +44,6 @@ const AppBar = () => {
       const currScrollPos = window.scrollY
       const visible = currScrollPos < lastScrollPos
 
-      console.log(visible)
-
       setIsVisible(visible)
       setLastScrollPos(currScrollPos)
     }
@@ -54,6 +52,8 @@ const AppBar = () => {
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollPos])
+
+  console.info({ session })
 
   return (
     <nav

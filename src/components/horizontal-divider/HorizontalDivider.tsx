@@ -1,5 +1,5 @@
 const HorizontalDivider = () => (
-  <div className='border-primary w-4/5 border-b-2' />
+  <div className='w-1/4 border-b border-slate-700' />
 )
 
 export default HorizontalDivider

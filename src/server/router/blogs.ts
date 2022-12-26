@@ -2,7 +2,7 @@ import { createRouter } from './context'
 import { ZBlog } from '../../types/zod-blogs'
 import * as trpc from '@trpc/server'
 
-const authorisedBlogCreators = ['luketparsons@gmail.com']
+export const authorisedUsers = ['luketparsons@gmail.com']
 
 export const blogRouter = createRouter()
   .mutation('create', {
@@ -13,7 +13,7 @@ export const blogRouter = createRouter()
       }
       if (
         ctx.session.user?.email &&
-        !authorisedBlogCreators.includes(ctx.session.user?.email)
+        !authorisedUsers.includes(ctx.session.user?.email)
       ) {
         throw new trpc.TRPCError({ code: 'FORBIDDEN' })
       }
