@@ -1,4 +1,4 @@
 import { z } from 'zod'
 
-const ZRoleEnums = z.enum(['USER', 'ADMIN'])
-type TRoleEnums = z.infer<typeof ZRoleEnums>
+export const ZRoleEnums = z.enum(['USER', 'ADMIN'])
+export type TRoleEnums = z.infer<typeof ZRoleEnums>

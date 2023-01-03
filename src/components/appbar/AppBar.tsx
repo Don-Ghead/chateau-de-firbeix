@@ -53,8 +53,6 @@ const AppBar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [lastScrollPos])
 
-  console.info({ session })
-
   return (
     <nav
       className={`sticky top-0 block ${

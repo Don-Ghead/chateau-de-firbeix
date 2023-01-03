@@ -1,8 +1,7 @@
 import { createRouter } from './context'
 import { ZBlog } from '../../types/zod-blogs'
 import * as trpc from '@trpc/server'
-
-export const authorisedUsers = ['luketparsons@gmail.com']
+import { ZRoleEnums } from '../../types/zod-auth'
 
 export const blogRouter = createRouter()
   .mutation('create', {
@@ -11,10 +10,7 @@ export const blogRouter = createRouter()
       if (!ctx.session || !ctx.session.user) {
         throw new trpc.TRPCError({ code: 'UNAUTHORIZED' })
       }
-      if (
-        ctx.session.user?.email &&
-        !authorisedUsers.includes(ctx.session.user?.email)
-      ) {
+      if (ctx.session.user.role !== ZRoleEnums.enum.ADMIN) {
         throw new trpc.TRPCError({ code: 'FORBIDDEN' })
       }
       return await ctx.prisma.blog.create({
