@@ -1,54 +1,77 @@
-import { IBlogSummaryProps } from './BlogSummary'
-import Link from 'next/link'
-import { BiHide, BiShow } from 'react-icons/bi'
+import { IBlog } from './BlogSummary'
+import { useState } from 'react'
+import BlogHideButton from './BlogHideButton'
+import BlogEditButton from './BlogEditButton'
+import { useRouter } from 'next/router'
+import BlogDeleteButton from './BlogDeleteButton'
+import { trpc } from '../../utils/trpc'
+import DeleteConfirmationModal from './DeleteConfirmationModal'
 
-interface IEditableBlogSummaryProps extends IBlogSummaryProps {
-  canEdit?: boolean
-  isHidden?: boolean
-}
-
-interface IShowHideButton {
+interface IEditableBlog extends IBlog {
   isHidden: boolean
-  onClick: (isHidden: boolean) => void
 }
 
-const ShowHideButton = ({ isHidden, onClick }: IShowHideButton) => (
-  <>
-    {isHidden ? (
-      <button className='rounded-md bg-slate-200'>
-        <BiHide size='1.5rem' color='white' />
-      </button>
-    ) : (
-      <BiShow size='1.5rem' color='white' />
-    )}
-  </>
-)
+interface IEditableBlogSummaryProps {
+  blog: IEditableBlog
+}
 
-const EditableBlogSummary = ({
-  title,
-  content,
-  id,
-  canEdit = true,
-  isHidden = false,
-}: IEditableBlogSummaryProps) => {
+const EditableBlogSummary = ({ blog }: IEditableBlogSummaryProps) => {
+  const router = useRouter()
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [formChanges, setFormChanges] = useState<IEditableBlog>(blog)
+
+  const deleteBlog = trpc.useMutation(['blog.delete'])
+
   return (
-    <article key={id} className='rounded-lg bg-slate-500 p-2'>
+    <article className='flex flex-col gap-2 rounded-lg bg-slate-500 p-4'>
       <div className='flex flex-row justify-between'>
         <label htmlFor='blog-title' className='text-slate-200'>
           Title
         </label>
-        <input
-          id='blog-title'
-          value={title}
-          className='text-slate-600'
-          onChange={event => console.log(event.target.value)}
-        />
-        <ShowHideButton
-          isHidden={isHidden}
-          onClick={newHiddenValue => console.log(newHiddenValue)}
-        />
+        <div className='flex gap-1'>
+          <BlogEditButton
+            onClick={() =>
+              router.push(`/blog/${encodeURIComponent(blog.id)}/detailed`)
+            }
+          />
+          <BlogHideButton
+            isHidden={formChanges.isHidden}
+            onClick={newHiddenValue =>
+              setFormChanges({ ...formChanges, isHidden: newHiddenValue })
+            }
+          />
+          <BlogDeleteButton onClick={() => setShowConfirmation(true)} />
+        </div>
       </div>
-      <p className='text-slate-200'>{content}</p>
+      <input
+        id='blog-title'
+        value={formChanges.title}
+        className='rounded-sm bg-slate-200 text-slate-600'
+        onChange={event =>
+          setFormChanges({ ...formChanges, title: event.target.value })
+        }
+      />
+
+      <label htmlFor='blog-title' className='text-slate-200'>
+        Description
+      </label>
+      <textarea
+        rows={3}
+        id='blog-description'
+        value={formChanges.content}
+        className='rounded-sm bg-slate-200 text-slate-600'
+        onChange={event =>
+          setFormChanges({ ...formChanges, content: event.target.value })
+        }
+      />
+      <DeleteConfirmationModal
+        isOpen={showConfirmation}
+        setIsOpen={setShowConfirmation}
+        disableConfirmButton={deleteBlog.isLoading}
+        onConfirm={() => {
+          deleteBlog.mutate(blog.id)
+        }}
+      />
     </article>
   )
 }

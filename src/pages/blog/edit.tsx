@@ -1,14 +1,19 @@
 import useIsAdmin from '../../utils/auth/useIsAdmin'
 import { NextPage } from 'next'
-import BlogSummary from '../../components/blog-summary/BlogSummary'
 import { trpc } from '../../utils/trpc'
+import EditableBlogSummary from '../../components/blog-summary/EditableBlogSummary'
 
 const Edit: NextPage = () => {
-  const { data: blogs, isLoading, error } = trpc.useQuery(['blog.getAll'])
+  const {
+    data: blogs,
+    isLoading,
+    error,
+  } = trpc.useQuery(['blog.getAllAsAdmin'])
   const isAdmin = useIsAdmin()
 
   if (isLoading) return <h2>Loading...</h2>
 
+  // TODO - better error handling
   if (error) return <h2>Error Fetching blogs: {error.message}</h2>
 
   if (!isAdmin) return <>Not Authorised!</>
@@ -26,8 +31,11 @@ const Edit: NextPage = () => {
         className='flex w-4/5 flex-col gap-3'
       >
         {blogs &&
-          blogs.map(({ title, content, id }) => (
-            <BlogSummary key={id} title={title} content={content} id={id} />
+          blogs.map(blog => (
+            <EditableBlogSummary
+              key={blog.id}
+              blog={{ ...blog, isHidden: false }}
+            />
           ))}{' '}
       </section>
     </main>

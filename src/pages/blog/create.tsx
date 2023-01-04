@@ -27,11 +27,11 @@ export const Create: NextPage = () => {
   }
 
   useEffect(() => {
-    if (createBlog.isSuccess) {
+    if (createBlog.isSuccess && !createBlog.isLoading) {
       setTitle('')
       setDescription('')
     }
-  }, [createBlog])
+  }, [createBlog.isSuccess, createBlog.isLoading])
 
   if (!isAdmin) return <>Not Authorised!</>
 

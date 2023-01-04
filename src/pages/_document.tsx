@@ -15,7 +15,6 @@ export const _document = () => {
             href='https://fonts.googleapis.com/css2?family=Montserrat&family=Gwendolyn:wght@700&display=swap'
             rel='stylesheet'
           />
-          <title>Chateau de Firbeix</title>
           <meta name='description' content='Chateau de firbeix' />
           <link rel='icon' href='/favicon_alt.ico' />
         </Head>

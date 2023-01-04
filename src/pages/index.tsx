@@ -1,16 +1,15 @@
 import type { NextPage } from 'next'
-import naturalPark from '/public/images/naturalparc-lake.jpg'
-import chateauFront from '/public/images/chateau-front.jpg'
-import chateauHomepage from '/public/images/chateau-homepage.jpeg'
-import HorizontalContentArticle from '../components/home-content-section/HorizontalContentArticle'
-import { chateauIntro } from '../components/home-content-section'
 import ImageGallery from '../components/image-gallery/ImageGallery'
 import { images } from '../components/image-gallery'
 import HorizontalDivider from '../components/horizontal-divider/HorizontalDivider'
+import Head from 'next/head'
 
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>Chateau de Firbeix</title>
+      </Head>
       <header>
         <div className='h-screen w-full bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat' />
       </header>

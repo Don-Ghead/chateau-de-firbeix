@@ -28,6 +28,7 @@ model Blog {
     content String
     images BlogImage[]
     publishedDate DateTime @default(now())
+    isHidden Boolean @default(false)
     // In the future we'll add blogs to a user but KISS for now
     //    authorId String @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

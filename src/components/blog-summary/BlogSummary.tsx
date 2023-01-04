@@ -1,15 +1,20 @@
 import Link from 'next/link'
 
-export interface IBlogSummaryProps {
+export interface IBlog {
   title: string
   content: string
   id: string
 }
 
-const BlogSummary = ({ title, content, id }: IBlogSummaryProps) => {
+interface IBlogSummaryProps {
+  blog: IBlog
+}
+
+const BlogSummary = ({ blog }: IBlogSummaryProps) => {
+  const { title, content, id } = blog
   return (
-    <article key={id} className='bg-slate-500'>
-      <h2 className='text-3xl '>
+    <article className='rounded-md bg-slate-500 p-3 text-slate-200'>
+      <h2 className='pb-2 text-3xl'>
         <Link href={`blog/${encodeURIComponent(id)}/detailed`}>{title}</Link>
       </h2>
       <p>{content}</p>
