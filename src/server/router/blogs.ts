@@ -38,19 +38,32 @@ export const blogRouter = createRouter()
       })
     },
   })
-  .query('getAllAsAdmin', {
-    async resolve({ ctx }) {
-      if (!ctx.session || !ctx.session.user) {
-        throw new trpc.TRPCError({ code: 'UNAUTHORIZED' })
+  .query('get', {
+    input: z.string(),
+    async resolve({ ctx, input }) {
+      if (
+        ctx.session &&
+        ctx.session.user &&
+        ctx.session.user.role === ZRoleEnums.enum.ADMIN
+      ) {
+        return await ctx.prisma.blog.findUniqueOrThrow({
+          where: { id: input },
+        })
       }
-      if (ctx.session.user.role !== ZRoleEnums.enum.ADMIN) {
-        throw new trpc.TRPCError({ code: 'FORBIDDEN' })
-      }
-      return await ctx.prisma.blog.findMany()
+      return await ctx.prisma.blog.findFirstOrThrow({
+        where: { id: input, isHidden: { equals: false } },
+      })
     },
   })
-  .query('getAllUnprivileged', {
+  .query('getAll', {
     async resolve({ ctx }) {
+      if (
+        ctx.session &&
+        ctx.session.user &&
+        ctx.session.user.role === ZRoleEnums.enum.ADMIN
+      ) {
+        return await ctx.prisma.blog.findMany()
+      }
       return await ctx.prisma.blog.findMany({
         where: { isHidden: { equals: false } },
       })

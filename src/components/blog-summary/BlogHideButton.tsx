@@ -1,16 +1,22 @@
 import { BiHide, BiShow } from 'react-icons/bi'
+import { buttonSizes, TButtonSizes } from './sharedButtonValues'
 
 interface IShowHideButton {
   isHidden: boolean
   onClick: (isHidden: boolean) => void
+  size: TButtonSizes
 }
 
-const BlogHideButton = ({ isHidden, onClick }: IShowHideButton) => (
+const BlogHideButton = ({
+  isHidden,
+  onClick,
+  size = buttonSizes.md,
+}: IShowHideButton) => (
   <button className='rounded-md' onClick={() => onClick(!isHidden)}>
     {isHidden ? (
-      <BiHide size='1.5rem' color='white' />
+      <BiHide size={size} className='stroke-slate-600' />
     ) : (
-      <BiShow size='1.5rem' color='white' />
+      <BiShow size={size} className='stroke-slate-600' />
     )}
   </button>
 )

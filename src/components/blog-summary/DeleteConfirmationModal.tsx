@@ -1,6 +1,6 @@
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { BsFillExclamationDiamondFill } from 'react-icons/all'
+import { BsFillExclamationDiamondFill } from 'react-icons/bs'
 
 interface IDeleteConfirmationModalProps {
   isOpen: boolean

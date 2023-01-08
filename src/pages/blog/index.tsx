@@ -5,11 +5,7 @@ import useIsAdmin from '../../utils/auth/useIsAdmin'
 import { useRouter } from 'next/router'
 
 const Blog: NextPage = () => {
-  const {
-    data: blogs,
-    isLoading,
-    error,
-  } = trpc.useQuery(['blog.getAllUnprivileged'])
+  const { data: blogs, isLoading, error } = trpc.useQuery(['blog.getAll'])
   const router = useRouter()
   const isAdmin = useIsAdmin()
 
@@ -34,7 +30,7 @@ const Blog: NextPage = () => {
             Create
           </button>
           <button
-            onClick={() => router.push('blog/edit')}
+            onClick={() => router.push('blog/manage')}
             className='rounded-lg bg-slate-600 px-3 py-1 text-xl text-slate-200'
           >
             Edit

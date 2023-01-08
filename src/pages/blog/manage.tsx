@@ -3,12 +3,8 @@ import { NextPage } from 'next'
 import { trpc } from '../../utils/trpc'
 import EditableBlogSummary from '../../components/blog-summary/EditableBlogSummary'
 
-const Edit: NextPage = () => {
-  const {
-    data: blogs,
-    isLoading,
-    error,
-  } = trpc.useQuery(['blog.getAllAsAdmin'])
+const Manage: NextPage = () => {
+  const { data: blogs, isLoading, error } = trpc.useQuery(['blog.getAll'])
   const isAdmin = useIsAdmin()
 
   if (isLoading) return <h2>Loading...</h2>
@@ -36,10 +32,10 @@ const Edit: NextPage = () => {
               key={blog.id}
               blog={{ ...blog, isHidden: false }}
             />
-          ))}{' '}
+          ))}
       </section>
     </main>
   )
 }
 
-export default Edit
+export default Manage

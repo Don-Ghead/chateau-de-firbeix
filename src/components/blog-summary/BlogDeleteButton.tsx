@@ -1,14 +1,19 @@
-import { AiOutlineDelete } from 'react-icons/all'
+import { AiOutlineDelete } from 'react-icons/ai'
+import { buttonSizes, TButtonSizes } from './sharedButtonValues'
 
 interface IBlogDeleteButtonProps {
   onClick: () => void
+  size: TButtonSizes
 }
 
-const BlogDeleteButton = ({ onClick }: IBlogDeleteButtonProps) => {
+const BlogDeleteButton = ({
+  onClick,
+  size = buttonSizes.md,
+}: IBlogDeleteButtonProps) => {
   return (
     <>
       <button className='rounded-md' onClick={onClick}>
-        <AiOutlineDelete size='1.4rem' color='white' />
+        <AiOutlineDelete size={size} className='stroke-slate-600' />
       </button>
     </>
   )
