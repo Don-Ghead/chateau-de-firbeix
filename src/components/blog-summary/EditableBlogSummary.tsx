@@ -1,85 +1,75 @@
-import { IBlog } from './BlogSummary'
 import { useState } from 'react'
 import BlogHideButton from './BlogHideButton'
 import BlogEditButton from './BlogEditButton'
 import { useRouter } from 'next/router'
 import BlogDeleteButton from './BlogDeleteButton'
 import { trpc } from '../../utils/trpc'
-import DeleteConfirmationModal from './DeleteConfirmationModal'
+import ConfirmationModal from './ConfirmationModal'
 import Link from 'next/link'
 import { buttonSizes } from './sharedButtonValues'
 
-export interface IEditableBlog extends IBlog {
+export interface IEditableBlog {
+  title: string
+  content: string
+  id: string
   isHidden: boolean
 }
 
 interface IEditableBlogSummaryProps {
   blog: IEditableBlog
+  showEditButtons?: boolean
 }
 
-const EditableBlogSummary = ({ blog }: IEditableBlogSummaryProps) => {
+const EditableBlogSummary = ({
+  blog,
+  showEditButtons = false,
+}: IEditableBlogSummaryProps) => {
   const router = useRouter()
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [formChanges, setFormChanges] = useState<IEditableBlog>(blog)
   const btnSize = buttonSizes.md
 
-  const deleteBlog = trpc.useMutation(['blog.delete'])
+  const deleteBlog = trpc.useMutation(['blogs.delete'])
 
   return (
-    <article className='flex flex-col gap-2 rounded-sm bg-slate-500 p-4 shadow-lg'>
+    <article className='flex flex-col gap-2 rounded-sm bg-slate-100 p-4 shadow'>
       <div className='flex flex-row justify-between'>
-        <h2 className='text bold pb-2 text-3xl text-slate-200'>
-          <Link href={`blog/${encodeURIComponent(formChanges.id)}/detailed`}>
+        <h2 className='pb-2 text-3xl font-bold text-slate-600'>
+          <Link href={`/blogs/${encodeURIComponent(formChanges.id)}/detailed`}>
             {formChanges.title}
           </Link>
         </h2>
-        <label htmlFor='blog-title' className='text-2xl text-slate-200'>
-          Title
-        </label>
-        <div className='flex gap-1'>
-          <BlogEditButton
-            onClick={() =>
-              router.push(
-                `/blog/${encodeURIComponent(formChanges.id)}/detailed`
-              )
-            }
-            size={btnSize}
-          />
-          <BlogHideButton
-            isHidden={formChanges.isHidden}
-            onClick={newHiddenValue =>
-              setFormChanges({ ...formChanges, isHidden: newHiddenValue })
-            }
-            size={btnSize}
-          />
-          <BlogDeleteButton
-            onClick={() => setShowConfirmation(true)}
-            size={btnSize}
-          />
-        </div>
+        {showEditButtons && (
+          <div className='flex gap-1'>
+            <BlogEditButton
+              onClick={() =>
+                router.push(
+                  `/blogs/${encodeURIComponent(formChanges.id)}/detailed`
+                )
+              }
+              size={btnSize}
+            />
+            <BlogHideButton
+              isHidden={formChanges.isHidden}
+              onClick={newHiddenValue =>
+                setFormChanges({ ...formChanges, isHidden: newHiddenValue })
+              }
+              size={btnSize}
+            />
+            <BlogDeleteButton
+              onClick={() => setShowConfirmation(true)}
+              size={btnSize}
+            />
+          </div>
+        )}
       </div>
-      <input
-        id='blog-title'
-        value={formChanges.title}
-        className='rounded-sm bg-slate-200 text-slate-600'
-        onChange={event =>
-          setFormChanges({ ...formChanges, title: event.target.value })
+      <p className='text-slate-500'>{formChanges.content}</p>
+      <ConfirmationModal
+        title='Delete Blog'
+        confirmButtonText='Delete'
+        displayText={
+          "Are you sure you want to delete this blog? If you're not sure you can just hide it temporarily. This action cannot be undone"
         }
-      />
-
-      <label htmlFor='blog-title' className='text-2xl text-slate-200'>
-        Description
-      </label>
-      <textarea
-        rows={3}
-        id='blog-description'
-        value={formChanges.content}
-        className='overflow-ellipsis rounded-sm bg-slate-200 text-slate-600'
-        onChange={event =>
-          setFormChanges({ ...formChanges, content: event.target.value })
-        }
-      />
-      <DeleteConfirmationModal
         isOpen={showConfirmation}
         setIsOpen={setShowConfirmation}
         disableConfirmButton={deleteBlog.isLoading}

@@ -19,7 +19,7 @@ export const navConfig: TNavConfig = [
   },
   {
     displayText: 'Blog',
-    navigationPath: '/blog',
+    navigationPath: '/blogs',
   },
   {
     displayText: 'Contact',

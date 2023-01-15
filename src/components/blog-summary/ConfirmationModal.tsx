@@ -8,16 +8,37 @@ interface IDeleteConfirmationModalProps {
   onCancel?: () => void
   onConfirm: () => void
   disableConfirmButton: boolean
+  displayText: string
+  confirmButtonText: string
+  title: string
+  severity?: 'error' | 'warn' | 'success'
 }
 
-const DeleteConfirmationModal = ({
+const ConfirmationModal = ({
   isOpen,
   setIsOpen,
   onConfirm,
   onCancel,
   disableConfirmButton,
+  displayText,
+  confirmButtonText,
+  title,
+  severity = 'error',
 }: IDeleteConfirmationModalProps) => {
   const cancelButtonRef = useRef(null)
+
+  const severityToColour = {
+    default: {
+      error: 'red-600',
+      warn: 'amber-500',
+      success: 'green-500',
+    },
+    hoverAccent: {
+      error: 'hover:bg-red-700',
+      warn: 'hover:bg-amber-600',
+      success: 'hover:bg-green-600',
+    },
+  }
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -53,9 +74,9 @@ const DeleteConfirmationModal = ({
               <Dialog.Panel className='relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
                 <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
                   <div className='sm:flex sm:items-start'>
-                    <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10'>
+                    <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 sm:mx-0 sm:h-10 sm:w-10'>
                       <BsFillExclamationDiamondFill
-                        className='h-6 w-6 text-red-600'
+                        className={`h-6 w-6 text-${severityToColour.default[severity]}`}
                         aria-hidden='true'
                       />
                     </div>
@@ -64,14 +85,10 @@ const DeleteConfirmationModal = ({
                         as='h3'
                         className='text-lg font-medium leading-6 text-gray-900'
                       >
-                        Delete Blog
+                        {title}
                       </Dialog.Title>
                       <div className='mt-2'>
-                        <p className='text-sm text-gray-500'>
-                          Are you sure you want to delete this blog? If youre
-                          not sure you can just hide it temporarily. This action
-                          cannot be undone
-                        </p>
+                        <p className='text-sm text-gray-500'>{displayText}</p>
                       </div>
                     </div>
                   </div>
@@ -80,13 +97,15 @@ const DeleteConfirmationModal = ({
                   <button
                     type='button'
                     disabled={disableConfirmButton}
-                    className='inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm'
+                    className={`inline-flex w-full justify-center rounded-md border border-transparent ${`bg-${severityToColour.default[severity]}`} ${
+                      severityToColour.hoverAccent[severity]
+                    } px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm`}
                     onClick={() => {
                       onConfirm()
                       setIsOpen(false)
                     }}
                   >
-                    Delete
+                    {confirmButtonText}
                   </button>
                   <button
                     type='button'
@@ -109,4 +128,4 @@ const DeleteConfirmationModal = ({
   )
 }
 
-export default DeleteConfirmationModal
+export default ConfirmationModal

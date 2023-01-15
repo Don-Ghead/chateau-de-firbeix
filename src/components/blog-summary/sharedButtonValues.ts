@@ -1,6 +1,6 @@
 export const buttonSizes = {
   sm: '1.1rem',
-  md: '1.4rem',
+  md: '1.6rem',
   lg: '1.9rem',
   xl: '2.5rem',
 } as const

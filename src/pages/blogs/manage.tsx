@@ -4,7 +4,7 @@ import { trpc } from '../../utils/trpc'
 import EditableBlogSummary from '../../components/blog-summary/EditableBlogSummary'
 
 const Manage: NextPage = () => {
-  const { data: blogs, isLoading, error } = trpc.useQuery(['blog.getAll'])
+  const { data: blogs, isLoading, error } = trpc.useQuery(['blogs.getAll'])
   const isAdmin = useIsAdmin()
 
   if (isLoading) return <h2>Loading...</h2>
@@ -19,7 +19,7 @@ const Manage: NextPage = () => {
       <h1 className='py-5 text-center text-3xl font-bold'>
         Edit Chateau de Firbeix Blogs
       </h1>
-      <h3 className='text-bold text-center text-2xl text-red-600'>
+      <h3 className='text-bold pb-4 text-center text-2xl text-red-600'>
         Important! Saving changes will apply them to the live website
       </h3>
       <section
@@ -29,6 +29,7 @@ const Manage: NextPage = () => {
         {blogs &&
           blogs.map(blog => (
             <EditableBlogSummary
+              showEditButtons={isAdmin}
               key={blog.id}
               blog={{ ...blog, isHidden: false }}
             />

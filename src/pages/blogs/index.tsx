@@ -1,11 +1,11 @@
 import { NextPage } from 'next'
 import { trpc } from '../../utils/trpc'
-import BlogSummary from '../../components/blog-summary/BlogSummary'
 import useIsAdmin from '../../utils/auth/useIsAdmin'
 import { useRouter } from 'next/router'
+import EditableBlogSummary from '../../components/blog-summary/EditableBlogSummary'
 
 const Blog: NextPage = () => {
-  const { data: blogs, isLoading, error } = trpc.useQuery(['blog.getAll'])
+  const { data: blogs, isLoading, error } = trpc.useQuery(['blogs.getAll'])
   const router = useRouter()
   const isAdmin = useIsAdmin()
 
@@ -24,14 +24,14 @@ const Blog: NextPage = () => {
           className='flex flex-row gap-2 pb-2'
         >
           <button
-            onClick={() => router.push('blog/create')}
-            className='rounded-lg bg-slate-600 px-3 py-1 text-xl text-slate-200'
+            onClick={() => router.push('blogs/create')}
+            className='rounded-lg bg-slate-100 px-3 py-1 text-xl text-slate-600 shadow'
           >
             Create
           </button>
           <button
-            onClick={() => router.push('blog/manage')}
-            className='rounded-lg bg-slate-600 px-3 py-1 text-xl text-slate-200'
+            onClick={() => router.push('blogs/manage')}
+            className='rounded-lg bg-slate-100 px-3 py-1 text-xl text-slate-600 shadow'
           >
             Edit
           </button>
@@ -39,9 +39,16 @@ const Blog: NextPage = () => {
       )}
       <section
         aria-label='list of blogs about the Chateau'
-        className='flex w-4/5 flex-col gap-3'
+        className='flex w-4/5 flex-col gap-4'
       >
-        {blogs && blogs.map(blog => <BlogSummary key={blog.id} blog={blog} />)}
+        {blogs &&
+          blogs.map(blog => (
+            <EditableBlogSummary
+              key={blog.id}
+              blog={blog}
+              showEditButtons={false}
+            />
+          ))}
       </section>
     </main>
   )
