@@ -6,18 +6,16 @@ import BlogDeleteButton from '../../../components/blog-summary/BlogDeleteButton'
 import ConfirmationModal from '../../../components/blog-summary/ConfirmationModal'
 import { trpc } from '../../../utils/trpc'
 import { useState } from 'react'
-import { IEditableBlog } from '../../../components/blog-summary/EditableBlogSummary'
 import useIsAdmin from '../../../utils/auth/useIsAdmin'
 import { buttonSizes } from '../../../components/blog-summary/sharedButtonValues'
 import TextAreaAutosize from 'react-textarea-autosize'
 import BlogSkeleton from '../../../components/blog-summary/BlogSkeleton'
+import { Blog } from '@prisma/client'
 
 const Detailed: NextPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [inEditMode, setInEditMode] = useState(false)
-  const [formChanges, setFormChanges] = useState<IEditableBlog | undefined>(
-    undefined
-  )
+  const [formChanges, setFormChanges] = useState<Blog | undefined>(undefined)
   const isAdmin = useIsAdmin()
   const router = useRouter()
   const { blog_id } = router.query

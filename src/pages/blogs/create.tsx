@@ -10,23 +10,65 @@ export const Create: NextPage = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [formError, setFormError] = useState('')
+  const [blogId, setBlogId] = useState('')
   const [showPublishConfirmation, setShowPublishConfirmation] = useState(false)
   const [showDiscardConfirmation, setShowDiscardConfirmation] = useState(false)
-  const createBlog = trpc.useMutation(['blogs.create'])
+  const createBlog = trpc.useMutation(['blogs.upsert'], {
+    onSuccess: data => {
+      console.info(`success `)
+      !blogId && setBlogId(data.id)
+    },
+  })
   const isAdmin = useIsAdmin()
   const router = useRouter()
 
-  const handleSaveForm = (publish: boolean) => {
+  const saveContentInterval = 30000 // 15s
+
+  const validateForm = () => {
     if (!title || !description) {
-      setFormError('Both fields must be filled in')
+      return 'Both fields must be filled in'
+    }
+    return ''
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (title || description) {
+        console.info(`calling upsert on blog with id: ${blogId}`)
+        console.info(`title: ${title}`)
+        console.info(`content: ${description}`)
+        createBlog.mutate({
+          id: blogId,
+          blogContent: {
+            title: title,
+            content: description,
+            images: [],
+            isHidden: true,
+          },
+        })
+      }
+    }, saveContentInterval)
+
+    // TODO - make sure this is the right way to clear an interval
+    return () => clearInterval(interval)
+  })
+
+  const handleSaveForm = (publish: boolean) => {
+    const formErrors = validateForm()
+    if (formErrors) {
+      setFormError(formErrors)
     } else {
       setFormError('')
       createBlog.mutate({
-        title: title,
-        content: description,
-        images: [],
-        isHidden: !publish,
+        id: blogId,
+        blogContent: {
+          title: title,
+          content: description,
+          images: [],
+          isHidden: !publish,
+        },
       })
+      router.push('/blogs')
     }
   }
 

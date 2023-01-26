@@ -2,6 +2,7 @@ import useIsAdmin from '../../utils/auth/useIsAdmin'
 import { NextPage } from 'next'
 import { trpc } from '../../utils/trpc'
 import EditableBlogSummary from '../../components/blog-summary/EditableBlogSummary'
+import { useState } from 'react'
 
 const Manage: NextPage = () => {
   const { data: blogs, isLoading, error } = trpc.useQuery(['blogs.getAll'])
@@ -31,7 +32,7 @@ const Manage: NextPage = () => {
             <EditableBlogSummary
               showEditButtons={isAdmin}
               key={blog.id}
-              blog={{ ...blog, isHidden: false }}
+              blog={blog}
             />
           ))}
       </section>

@@ -59,7 +59,7 @@ const AppBar = () => {
         !isVisible ? '-top-52' : ''
       } z-20 flex w-full flex-row justify-center border-b-2 border-b-slate-300 bg-slate-100 py-3 transition-all duration-700`}
     >
-      <ul className='flex items-center justify-center self-center'>
+      <ul className='flex flex-wrap items-center justify-center self-center'>
         <NavItems />
       </ul>
       {!session ? (

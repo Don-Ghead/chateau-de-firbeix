@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import BlogHideButton from './BlogHideButton'
 import BlogEditButton from './BlogEditButton'
 import { useRouter } from 'next/router'
@@ -7,16 +7,11 @@ import { trpc } from '../../utils/trpc'
 import ConfirmationModal from './ConfirmationModal'
 import Link from 'next/link'
 import { buttonSizes } from './sharedButtonValues'
-
-export interface IEditableBlog {
-  title: string
-  content: string
-  id: string
-  isHidden: boolean
-}
+import { Blog } from '@prisma/client'
+import { BiHide, BiShow } from 'react-icons/bi'
 
 interface IEditableBlogSummaryProps {
-  blog: IEditableBlog
+  blog: Blog
   showEditButtons?: boolean
 }
 
@@ -26,7 +21,7 @@ const EditableBlogSummary = ({
 }: IEditableBlogSummaryProps) => {
   const router = useRouter()
   const [showConfirmation, setShowConfirmation] = useState(false)
-  const [formChanges, setFormChanges] = useState<IEditableBlog>(blog)
+  const [formChanges, setFormChanges] = useState<Blog>(blog)
   const btnSize = buttonSizes.md
 
   const deleteBlog = trpc.useMutation(['blogs.delete'])
@@ -51,9 +46,7 @@ const EditableBlogSummary = ({
             />
             <BlogHideButton
               isHidden={formChanges.isHidden}
-              onClick={newHiddenValue =>
-                setFormChanges({ ...formChanges, isHidden: newHiddenValue })
-              }
+              disabled
               size={btnSize}
             />
             <BlogDeleteButton

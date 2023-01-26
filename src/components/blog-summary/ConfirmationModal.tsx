@@ -28,17 +28,20 @@ const ConfirmationModal = ({
   const cancelButtonRef = useRef(null)
 
   const severityToColour = {
-    default: {
-      error: 'red-600',
-      warn: 'amber-500',
-      success: 'green-500',
+    error: { bg: 'bg-red-600', hover: 'hover:bg-red-700', colour: 'red-600' },
+    warn: {
+      bg: 'bg-amber-500',
+      hover: 'hover:bg-amber-600',
+      colour: 'amber-600',
     },
-    hoverAccent: {
-      error: 'hover:bg-red-700',
-      warn: 'hover:bg-amber-600',
-      success: 'hover:bg-green-600',
+    success: {
+      bg: 'bg-green-500',
+      hover: 'hover:bg-green-600',
+      colour: 'green-600',
     },
   }
+
+  const { bg, hover, colour } = severityToColour[severity]
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -76,7 +79,7 @@ const ConfirmationModal = ({
                   <div className='sm:flex sm:items-start'>
                     <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 sm:mx-0 sm:h-10 sm:w-10'>
                       <BsFillExclamationDiamondFill
-                        className={`h-6 w-6 text-${severityToColour.default[severity]}`}
+                        className={`h-6 w-6 text-${colour}`}
                         aria-hidden='true'
                       />
                     </div>
@@ -97,10 +100,9 @@ const ConfirmationModal = ({
                   <button
                     type='button'
                     disabled={disableConfirmButton}
-                    className={`inline-flex w-full justify-center rounded-md border border-transparent ${`bg-${severityToColour.default[severity]}`} ${
-                      severityToColour.hoverAccent[severity]
-                    } px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm`}
-                    onClick={() => {
+                    className={`inline-flex w-full justify-center rounded-md border border-transparent ${bg} ${hover} px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none sm:ml-3 sm:w-auto sm:text-sm`}
+                    onClick={event => {
+                      event.preventDefault()
                       onConfirm()
                       setIsOpen(false)
                     }}
@@ -110,7 +112,8 @@ const ConfirmationModal = ({
                   <button
                     type='button'
                     className='mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm'
-                    onClick={() => {
+                    onClick={event => {
+                      event.preventDefault()
                       onCancel && onCancel()
                       setIsOpen(false)
                     }}
