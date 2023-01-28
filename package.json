@@ -23,6 +23,8 @@
     "@trpc/next": "^9.27.4",
     "@trpc/react": "^9.27.4",
     "@trpc/server": "^9.27.4",
+    "aws-amplify": "^5.0.11",
+    "easymde": "^2.18.0",
     "next": "12.3.1",
     "next-auth": "~4.10.3",
     "react": "18.2.0",
@@ -30,8 +32,10 @@
     "react-icons": "^4.7.1",
     "react-image-gallery": "^1.2.11",
     "react-query": "^3.39.2",
+    "react-simplemde-editor": "^5.2.0",
     "react-textarea-autosize": "^8.4.0",
     "superjson": "^1.10.0",
+    "ts-to-zod": "^2.0.0",
     "zod": "^3.18.0"
   },
   "devDependencies": {

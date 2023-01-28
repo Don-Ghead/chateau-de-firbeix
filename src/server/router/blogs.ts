@@ -14,12 +14,15 @@ export const blogRouter = createRouter()
       if (ctx.session.user.role !== ZRoleEnums.enum.ADMIN) {
         throw new trpc.TRPCError({ code: 'FORBIDDEN' })
       }
+      const { title, content } = input.blogContent
       return await ctx.prisma.blog.upsert({
         create: {
-          ...input.blogContent,
+          title,
+          content,
         },
         update: {
-          ...input.blogContent,
+          title,
+          content,
         },
         where: {
           id: input.id,
