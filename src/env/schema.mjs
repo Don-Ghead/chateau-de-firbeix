@@ -1,5 +1,5 @@
 // @ts-check
-import { z } from 'zod'
+import {z} from 'zod'
 
 // TODO - Atm we have chucked everything in server side env vars
 // not sure if this is right but need to have a proper look
@@ -9,12 +9,16 @@ import { z } from 'zod'
  * This way you can ensure the app isn't built with invalid env vars.
  */
 export const serverSchema = z.object({
-  DATABASE_URL: z.string().url(),
-  NODE_ENV: z.enum(['development', 'test', 'production']),
-  NEXTAUTH_SECRET: z.string(),
-  NEXTAUTH_URL: z.string().url(),
-  GOOGLE_CLIENT_ID: z.string(),
-  GOOGLE_CLIENT_SECRET: z.string(),
+    DATABASE_URL: z.string().url(),
+    NODE_ENV: z.enum(['development', 'test', 'production']),
+    NEXTAUTH_SECRET: z.string(),
+    NEXTAUTH_URL: z.string().url(),
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
+    AWS_SDK_ACCESS_KEY: z.string(),
+    AWS_SDK_SECRET: z.string(),
+    AWS_REGION: z.string(),
+    AWS_S3_BUCKET_NAME: z.string()
 })
 
 /**
@@ -23,7 +27,8 @@ export const serverSchema = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-  NEXT_PUBLIC_NODE_ENV: z.enum(['development', 'test', 'production']),
+    NEXT_PUBLIC_NODE_ENV: z.enum(['development', 'test', 'production']),
+    NEXT_PUBLIC_S3_BUCKET_NAME: z.string()
 })
 
 /**
@@ -33,5 +38,6 @@ export const clientSchema = z.object({
  * @type {{ [k in keyof z.infer<typeof clientSchema>]: z.infer<typeof clientSchema>[k] | undefined }}
  */
 export const clientEnv = {
-  NEXT_PUBLIC_NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_S3_BUCKET_NAME: process.env.NEXT_PUBLIC_S3_BUCKET_NAME
 }

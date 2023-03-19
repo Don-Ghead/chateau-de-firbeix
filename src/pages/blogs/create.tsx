@@ -6,9 +6,7 @@ import ConfirmationModal from '../../components/blog-summary/ConfirmationModal'
 import { useRouter } from 'next/router'
 import 'easymde/dist/easymde.min.css'
 import { Blog } from '@prisma/client'
-import EasyMDE from 'easymde'
-import SimpleMdeReact from 'react-simplemde-editor'
-import { validateImageSize, isValidImageType } from '../../utils/imageHelpers'
+import { BlogMarkdownEditor } from '../../components/blog-markdown-editor/BlogMarkdownEditor'
 
 interface TBlogReducerAction {
   type: 'TITLE' | 'CONTENT' | 'ID'
@@ -53,7 +51,13 @@ export const Create: NextPage = () => {
 
   const validateForm = () => {
     if (!formBlog.title || !formBlog.content) {
-      return 'Both fields must be filled in'
+      return 'Fields cannot be empty'
+    }
+    if (formBlog.title.length > 255) {
+      return 'Title cannot exceed 255 characters'
+    }
+    if (formBlog.content.length > 128000) {
+      return 'Blog content is too long'
     }
     return ''
   }
@@ -79,6 +83,7 @@ export const Create: NextPage = () => {
 
   const handleSaveForm = (publish: boolean) => {
     const formErrors = validateForm()
+    setFormError(formErrors)
     if (formErrors) {
       setFormError(formErrors)
     } else {
@@ -96,23 +101,6 @@ export const Create: NextPage = () => {
     }
   }
 
-  const simpleMDEOptions: EasyMDE.Options = {
-    showIcons: ['strikethrough'],
-    uploadImage: true,
-    // Todo hook up onSuccess/onError
-    imageUploadFunction: (file, onSuccess, onError) => {
-      const imageTypeValidation = isValidImageType(file)
-      if (!imageTypeValidation) {
-        setFormError('Accepted image types are PNG, JPEG/JPG, and GIF')
-        return
-      }
-      const imgSizeErr = validateImageSize(file)
-      if (imgSizeErr.status === 'FAILURE') {
-        setFormError(imgSizeErr.message)
-      }
-    },
-  }
-
   if (!isAdmin) return <>Not Authorised!</>
 
   return (
@@ -128,12 +116,12 @@ export const Create: NextPage = () => {
             setFormBlog({ type: 'TITLE', payload: event.target.value })
           }
         />
-        <SimpleMdeReact
-          value={formBlog.content}
-          placeholder={'Content...'}
+        <BlogMarkdownEditor
+          content={formBlog.content}
           onChange={newContent =>
             setFormBlog({ type: 'CONTENT', payload: newContent })
           }
+          onError={err => setFormError(err)}
         />
         {formError && (
           <h3 className='p-2 text-xl font-bold text-red-500'>{formError}</h3>

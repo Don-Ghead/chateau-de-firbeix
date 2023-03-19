@@ -21,6 +21,8 @@ export const validateImageSize = (
   if (file.size === 0) {
     validation = { status: 'FAILURE', message: 'File has a size of 0' }
   }
+  // this is a randomly chosen image size cap to ensure we're not
+  // uploading huge images
   if (file.size >= 30 * 1000000) {
     validation = {
       status: 'FAILURE',
@@ -43,5 +45,3 @@ export const isValidImageType = (
 ) => {
   return validImageTypes.includes(file.type)
 }
-
-export const uploadImageToS3 = () => {}

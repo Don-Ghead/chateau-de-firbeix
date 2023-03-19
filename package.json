@@ -15,6 +15,7 @@
     "prisma-studio": "yarn prisma studio"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.294.0",
     "@headlessui/react": "^1.7.7",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.7.0",
@@ -23,7 +24,6 @@
     "@trpc/next": "^9.27.4",
     "@trpc/react": "^9.27.4",
     "@trpc/server": "^9.27.4",
-    "aws-amplify": "^5.0.11",
     "easymde": "^2.18.0",
     "next": "12.3.1",
     "next-auth": "~4.10.3",
@@ -36,6 +36,7 @@
     "react-textarea-autosize": "^8.4.0",
     "superjson": "^1.10.0",
     "ts-to-zod": "^2.0.0",
+    "uuid": "^9.0.0",
     "zod": "^3.18.0"
   },
   "devDependencies": {
@@ -44,6 +45,7 @@
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "@types/react-image-gallery": "^1.2.0",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "autoprefixer": "^10.4.12",

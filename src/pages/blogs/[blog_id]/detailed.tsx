@@ -35,6 +35,7 @@ const Detailed: NextPage = () => {
 
   if (isLoading) return <BlogSkeleton />
 
+  // TODO - Replace content Input with EasyMDE
   return (
     <>
       <h3 className='text-bold py-5 text-center text-2xl font-bold text-red-600'>
