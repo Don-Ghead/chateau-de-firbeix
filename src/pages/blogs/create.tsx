@@ -8,6 +8,7 @@ import 'easymde/dist/easymde.min.css'
 import { Blog } from '@prisma/client'
 import EasyMDE from 'easymde'
 import SimpleMdeReact from 'react-simplemde-editor'
+import { validateImageSize, isValidImageType } from '../../utils/imageHelpers'
 
 interface TBlogReducerAction {
   type: 'TITLE' | 'CONTENT' | 'ID'
@@ -33,27 +34,6 @@ const initialState = {
   isHidden: true,
   id: '',
   publishedDate: new Date(),
-}
-
-const validateImageSize = (file: File, maxFileSizeInMb = 7) => {
-  if (file.size === 0) {
-    return 'File has a size of 0'
-  }
-  if (file.size >= 30 * 1000000) {
-    return 'Hit safety cap of 30MB for an image'
-  }
-  return file.size <= maxFileSizeInMb * 1000000
-    ? ''
-    : 'Hit image size cap for images in this section'
-}
-
-const validateImageType = (
-  file: File,
-  validImageTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/jpg']
-) => {
-  return validImageTypes.includes(file.type)
-    ? ''
-    : 'Only File types allowed are PNG, JPEG/JPG, GIF'
 }
 
 export const Create: NextPage = () => {
@@ -119,15 +99,16 @@ export const Create: NextPage = () => {
   const simpleMDEOptions: EasyMDE.Options = {
     showIcons: ['strikethrough'],
     uploadImage: true,
+    // Todo hook up onSuccess/onError
     imageUploadFunction: (file, onSuccess, onError) => {
-      const imgTypeErr = validateImageType(file)
-      if (imgTypeErr) {
-        setFormError(imgTypeErr)
+      const imageTypeValidation = isValidImageType(file)
+      if (!imageTypeValidation) {
+        setFormError('Accepted image types are PNG, JPEG/JPG, and GIF')
         return
       }
       const imgSizeErr = validateImageSize(file)
-      if (imgSizeErr) {
-        setFormError(imgSizeErr)
+      if (imgSizeErr.status === 'FAILURE') {
+        setFormError(imgSizeErr.message)
       }
     },
   }
