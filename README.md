@@ -37,4 +37,4 @@ To inspect the locally running database simply run `yarn prisma-studio` and this
 run up a prisma server at a specified port for you to use.
 
 When making changes to the database schema you'll need to run `prisma generate` to generate
-a database migration file to be applied in the future. 
+a database migration file to be applied in the future.

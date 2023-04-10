@@ -1,54 +1,45 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import BlogHideButton from './BlogHideButton'
 import BlogEditButton from './BlogEditButton'
 import { useRouter } from 'next/router'
 import BlogDeleteButton from './BlogDeleteButton'
-import { trpc } from '../../utils/trpc'
 import ConfirmationModal from './ConfirmationModal'
 import Link from 'next/link'
 import { buttonSizes } from './sharedButtonValues'
 import { Blog } from '@prisma/client'
-import { BiHide, BiShow } from 'react-icons/bi'
 
 interface IEditableBlogSummaryProps {
   blog: Blog
   showEditButtons?: boolean
+  onDelete: () => void
 }
 
 const EditableBlogSummary = ({
   blog,
   showEditButtons = false,
+  onDelete,
 }: IEditableBlogSummaryProps) => {
   const router = useRouter()
   const [showConfirmation, setShowConfirmation] = useState(false)
-  const [formChanges, setFormChanges] = useState<Blog>(blog)
   const btnSize = buttonSizes.md
-
-  const deleteBlog = trpc.useMutation(['blogs.delete'])
 
   return (
     <article className='flex flex-col gap-2 rounded-sm bg-slate-100 p-4 shadow'>
       <div className='flex flex-row justify-between'>
         <h2 className='pb-2 text-3xl font-bold text-slate-600'>
-          <Link href={`/blogs/${encodeURIComponent(formChanges.id)}/detailed`}>
-            {formChanges.title}
+          <Link href={`/blogs/${encodeURIComponent(blog.id)}/detailed`}>
+            {blog.title}
           </Link>
         </h2>
         {showEditButtons && (
           <div className='flex gap-1'>
             <BlogEditButton
               onClick={() =>
-                router.push(
-                  `/blogs/${encodeURIComponent(formChanges.id)}/detailed`
-                )
+                router.push(`/blogs/${encodeURIComponent(blog.id)}/detailed`)
               }
               size={btnSize}
             />
-            <BlogHideButton
-              isHidden={formChanges.isHidden}
-              disabled
-              size={btnSize}
-            />
+            <BlogHideButton isHidden={blog.isHidden} disabled size={btnSize} />
             <BlogDeleteButton
               onClick={() => setShowConfirmation(true)}
               size={btnSize}
@@ -56,7 +47,7 @@ const EditableBlogSummary = ({
           </div>
         )}
       </div>
-      <p className='text-slate-500'>{formChanges.content}</p>
+      <p className='text-slate-500'>{blog.content}</p>
       <ConfirmationModal
         title='Delete Blog'
         confirmButtonText='Delete'
@@ -65,10 +56,7 @@ const EditableBlogSummary = ({
         }
         isOpen={showConfirmation}
         setIsOpen={setShowConfirmation}
-        disableConfirmButton={deleteBlog.isLoading}
-        onConfirm={() => {
-          deleteBlog.mutate(blog.id)
-        }}
+        onConfirm={onDelete}
       />
     </article>
   )

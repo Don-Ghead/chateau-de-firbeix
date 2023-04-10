@@ -23,6 +23,7 @@ export const blogRouter = createRouter()
         update: {
           title,
           content,
+          lastEditDate: new Date(),
         },
         where: {
           id: input.id,

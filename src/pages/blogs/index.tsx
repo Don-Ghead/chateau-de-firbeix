@@ -3,9 +3,18 @@ import { trpc } from '../../utils/trpc'
 import useIsAdmin from '../../utils/auth/useIsAdmin'
 import { useRouter } from 'next/router'
 import EditableBlogSummary from '../../components/blog-summary/EditableBlogSummary'
+import { useState } from 'react'
 
 const Blog: NextPage = () => {
-  const { data: blogs, isLoading, error } = trpc.useQuery(['blogs.getAll'])
+  const {
+    data: blogs,
+    isLoading,
+    error,
+    refetch,
+  } = trpc.useQuery(['blogs.getAll'])
+  const deleteBlog = trpc.useMutation(['blogs.delete'])
+  const [showEditButtons, setShowEditButtons] = useState(false)
+
   const router = useRouter()
   const isAdmin = useIsAdmin()
 
@@ -18,6 +27,11 @@ const Blog: NextPage = () => {
       <h1 className='py-5 text-center font-title text-5xl'>
         Chateau de Firbeix Blogs
       </h1>
+      {showEditButtons && (
+        <h3 className='text-bold pb-4 text-center text-2xl text-red-600'>
+          Important! Saving changes will apply them to the live website
+        </h3>
+      )}
       {isAdmin && (
         <section
           aria-label='admin controls'
@@ -30,7 +44,7 @@ const Blog: NextPage = () => {
             Create
           </button>
           <button
-            onClick={() => router.push('blogs/manage')}
+            onClick={() => setShowEditButtons(!showEditButtons)}
             className='rounded-lg bg-slate-100 px-3 py-1 text-xl text-slate-600 shadow'
           >
             Edit
@@ -46,7 +60,10 @@ const Blog: NextPage = () => {
             <EditableBlogSummary
               key={blog.id}
               blog={blog}
-              showEditButtons={false}
+              showEditButtons={showEditButtons}
+              onDelete={() => {
+                deleteBlog.mutate(blog.id, { onSuccess: () => refetch() })
+              }}
             />
           ))}
       </section>

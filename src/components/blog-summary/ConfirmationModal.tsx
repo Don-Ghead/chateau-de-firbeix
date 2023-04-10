@@ -7,7 +7,7 @@ interface IDeleteConfirmationModalProps {
   setIsOpen: (isOpen: boolean) => void
   onCancel?: () => void
   onConfirm: () => void
-  disableConfirmButton: boolean
+  disableConfirmButton?: boolean
   displayText: string
   confirmButtonText: string
   title: string
@@ -19,7 +19,7 @@ const ConfirmationModal = ({
   setIsOpen,
   onConfirm,
   onCancel,
-  disableConfirmButton,
+  disableConfirmButton = false,
   displayText,
   confirmButtonText,
   title,
@@ -104,7 +104,6 @@ const ConfirmationModal = ({
                     onClick={event => {
                       event.preventDefault()
                       onConfirm()
-                      setIsOpen(false)
                     }}
                   >
                     {confirmButtonText}
@@ -115,7 +114,6 @@ const ConfirmationModal = ({
                     onClick={event => {
                       event.preventDefault()
                       onCancel && onCancel()
-                      setIsOpen(false)
                     }}
                     ref={cancelButtonRef}
                   >

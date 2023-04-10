@@ -5,6 +5,7 @@ export const ZBlog = z.object({
   content: z.string(),
   images: z.array(z.string().url()),
   isHidden: z.boolean(),
+  lastEditDate: z.date().optional(),
 })
 
 export const ZBlogUpsert = z.object({
