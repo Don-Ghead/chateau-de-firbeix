@@ -8,7 +8,7 @@ interface IShowHideButton {
   disabled?: boolean
 }
 
-const BlogHideButton = ({
+const BlogPubliclyVisibleButton = ({
   isHidden,
   onClick,
   size = buttonSizes.md,
@@ -27,4 +27,4 @@ const BlogHideButton = ({
   </button>
 )
 
-export default BlogHideButton
+export default BlogPubliclyVisibleButton

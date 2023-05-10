@@ -61,10 +61,11 @@ export const Create: NextPage = () => {
       !formBlog.id && blogDispatch({ type: 'ID', payload: data.id })
     },
   })
+  const deleteBlog = trpc.useMutation(['blogs.delete'])
   const isAdmin = useIsAdmin()
   const router = useRouter()
 
-  const saveContentInterval = 5000 // 30000 // 30s
+  const saveContentIntervalMilliseconds = 15000
 
   const handleSaveForm = (publish: boolean) => {
     const formErrors = validateBlogForm(formBlog)
@@ -79,13 +80,21 @@ export const Create: NextPage = () => {
           blogContent: {
             title: formBlog.title,
             content: formBlog.content,
-            images: [],
             isHidden: !publish,
           },
         },
-        { onSuccess: () => router.push('/blogs') }
+        {
+          onSuccess: blog => {
+            if (publish) router.push('/blogs')
+            else
+              setUpdateMessage(
+                `Last saved at ${blog.lastEditDate.toLocaleString()}`
+              )
+          },
+        }
       )
     }
+    setShowPublishConfirmation(false)
   }
 
   useEffect(() => {
@@ -99,13 +108,11 @@ export const Create: NextPage = () => {
             blogContent: {
               title: formBlog.title,
               content: formBlog.content,
-              images: [],
               isHidden: true,
             },
           },
           {
             onSuccess: blog => {
-              console.log('saved blog at ${blog.lastEditDate}')
               setUpdateMessage(
                 `Last saved at ${blog.lastEditDate.toLocaleString()}`
               )
@@ -113,7 +120,7 @@ export const Create: NextPage = () => {
           }
         )
       }
-    }, saveContentInterval)
+    }, saveContentIntervalMilliseconds)
 
     // TODO - make sure this is the right way to clear an interval
     return () => clearInterval(interval)
@@ -127,7 +134,7 @@ export const Create: NextPage = () => {
         <b className='self-start text-3xl font-bold text-slate-500'>
           Create new blog
         </b>
-        <b className='text-l py-2 pl-1 text-slate-600'>
+        <b className='text-l py-2 pl-1 font-light text-slate-600'>
           Insert your blog content below, simply drag and and drop images to
           insert them!
         </b>
@@ -159,11 +166,9 @@ export const Create: NextPage = () => {
           )}
 
           <div className='flex items-center justify-between'>
-            {updateMessage && (
-              <h3 className='text-l text-green-700 text-opacity-100'>
-                {updateMessage}
-              </h3>
-            )}
+            <h3 className='text-l text-green-700 text-opacity-100'>
+              {updateMessage}
+            </h3>
             <div className='flex justify-center gap-2 self-end pt-2'>
               <button
                 onClick={event => {
@@ -212,7 +217,12 @@ export const Create: NextPage = () => {
         displayText="Are you sure you want to discard this content? It won't be recoverable"
         isOpen={showDiscardConfirmation}
         setIsOpen={setShowDiscardConfirmation}
-        onConfirm={() => blogDispatch({ type: 'RESET', payload: '' })}
+        onConfirm={() => {
+          blogDispatch({ type: 'RESET', payload: '' })
+          setUpdateMessage('')
+          deleteBlog.mutate(formBlog.id)
+          setShowDiscardConfirmation(false)
+        }}
       />
     </main>
   )

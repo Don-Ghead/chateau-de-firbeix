@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import BlogEditButton from '../../../components/blog-summary/BlogEditButton'
-import BlogHideButton from '../../../components/blog-summary/BlogHideButton'
+import BlogPubliclyVisibleButton from '../../../components/blog-summary/BlogPubliclyVisibleButton'
 import BlogDeleteButton from '../../../components/blog-summary/BlogDeleteButton'
 import ConfirmationModal from '../../../components/blog-summary/ConfirmationModal'
 import { trpc } from '../../../utils/trpc'
@@ -11,11 +11,13 @@ import { buttonSizes } from '../../../components/blog-summary/sharedButtonValues
 import TextAreaAutosize from 'react-textarea-autosize'
 import BlogSkeleton from '../../../components/blog-summary/BlogSkeleton'
 import { Blog } from '@prisma/client'
+import { BlogMarkdownEditor } from '../../../components/blog-markdown-editor/BlogMarkdownEditor'
 
 const Detailed: NextPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [inEditMode, setInEditMode] = useState(false)
   const [formChanges, setFormChanges] = useState<Blog | undefined>(undefined)
+  const [formError, setFormError] = useState('')
   const isAdmin = useIsAdmin()
   const router = useRouter()
   const { blog_id } = router.query
@@ -26,8 +28,8 @@ const Detailed: NextPage = () => {
       // only set the current form values the first time we load
       !formChanges && setFormChanges(data)
     },
-    onError: () => {
-      setFormChanges(undefined)
+    onError: err => {
+      setFormError(err.message)
     },
   })
 
@@ -49,7 +51,7 @@ const Detailed: NextPage = () => {
                 size={buttonSizes.lg}
                 onClick={() => setInEditMode(!inEditMode)}
               />
-              <BlogHideButton
+              <BlogPubliclyVisibleButton
                 isHidden={formChanges.isHidden}
                 size={buttonSizes.lg}
                 onClick={newHiddenValue =>
@@ -78,13 +80,12 @@ const Detailed: NextPage = () => {
             </h1>
           )}
           {inEditMode ? (
-            <TextAreaAutosize
-              value={formChanges.content.trim()}
-              id='blog-description'
-              onChange={event =>
-                setFormChanges({ ...formChanges, content: event.target.value })
+            <BlogMarkdownEditor
+              content={formChanges.content.trim()}
+              onChange={updatedContent =>
+                setFormChanges({ ...formChanges, content: updatedContent })
               }
-              className='text-md rounded p-2 text-slate-500 shadow focus:outline-slate-400'
+              onError={setFormError}
             />
           ) : (
             <p className='text-lg text-slate-500'>{formChanges.content}</p>

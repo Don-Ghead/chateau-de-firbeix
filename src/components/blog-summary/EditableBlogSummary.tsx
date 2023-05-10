@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import BlogHideButton from './BlogHideButton'
+import BlogPubliclyVisibleButton from './BlogPubliclyVisibleButton'
 import BlogEditButton from './BlogEditButton'
 import { useRouter } from 'next/router'
 import BlogDeleteButton from './BlogDeleteButton'
@@ -27,7 +27,7 @@ const EditableBlogSummary = ({
     <article className='flex flex-col gap-2 rounded-sm bg-slate-100 p-4 shadow'>
       <div className='flex flex-row justify-between'>
         <h2 className='pb-2 text-3xl font-bold text-slate-600'>
-          <Link href={`/blogs/${encodeURIComponent(blog.id)}/detailed`}>
+          <Link href={`/blogs/${encodeURIComponent(blog.id)}`}>
             {blog.title}
           </Link>
         </h2>
@@ -35,11 +35,15 @@ const EditableBlogSummary = ({
           <div className='flex gap-1'>
             <BlogEditButton
               onClick={() =>
-                router.push(`/blogs/${encodeURIComponent(blog.id)}/detailed`)
+                router.push(`/blogs/${encodeURIComponent(blog.id)}`)
               }
               size={btnSize}
             />
-            <BlogHideButton isHidden={blog.isHidden} disabled size={btnSize} />
+            <BlogPubliclyVisibleButton
+              isHidden={blog.isHidden}
+              disabled
+              size={btnSize}
+            />
             <BlogDeleteButton
               onClick={() => setShowConfirmation(true)}
               size={btnSize}

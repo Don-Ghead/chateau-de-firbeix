@@ -24,9 +24,6 @@ const Home: NextPage = () => {
           id='overview'
           className='bg-tan flex h-full w-full flex-col items-center gap-5'
         >
-          {/*<h2 className='text-primary pt-8 font-title text-6xl italic'>*/}
-          {/*  Chez Nous*/}
-          {/*</h2>*/}
           <p className='mx-56 pt-16 text-center text-2xl'>
             A beautiful piece of 14th century French history residing in the
             authentically French village of Firbeix surrounded by the
