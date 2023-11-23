@@ -1,26 +1,11 @@
-import { navConfig } from './navconfig'
 import { ReactNode, useEffect, useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import Image from 'next/image'
 
-const NavItems = () => {
-  return (
-    <>
-      {navConfig.map(({ displayText, navigationPath, onClick }) => {
-        return (
-          <li
-            className='mr-6 font-primary text-2xl text-slate-700'
-            key={`${displayText}`}
-          >
-            <Link onClick={onClick} href={navigationPath}>
-              {displayText}
-            </Link>
-          </li>
-        )
-      })}
-    </>
-  )
-}
+const NavItem = ({ children }: { children: ReactNode }) => (
+  <li className='font-primary text-2xl text-slate-700'>{children}</li>
+)
 
 type TAuthButtonProps = {
   onClick: () => void
@@ -57,16 +42,34 @@ const AppBar = () => {
     <nav
       className={`sticky top-0 block ${
         !isVisible ? '-top-52' : ''
-      } z-20 flex w-full flex-row justify-center border-b-2 border-b-slate-300 bg-slate-100 py-3 transition-all duration-700`}
+      } z-20 flex w-full flex-row justify-center border-b-2 border-b-slate-300 bg-slate-100 py-2 transition-all duration-700`}
     >
-      <ul className='flex flex-wrap items-center justify-center self-center'>
-        <NavItems />
+      <ul className='items-between flex flex-wrap items-center gap-24 self-center'>
+        <NavItem>
+          <Link href='/'>Home</Link>
+        </NavItem>
+        <NavItem>
+          <Link href='/gites'>Gites</Link>
+        </NavItem>
+        <Image
+          width={140}
+          height={80}
+          src='/chateau-logo.png'
+          alt='Chateau Logo'
+          className='px-3'
+        />
+        <NavItem>
+          <Link href='/blogs'>News</Link>
+        </NavItem>
+        <NavItem>
+          <Link href='/contact'>Contact</Link>
+        </NavItem>
+        {/*{!session ? (*/}
+        {/*  <AuthButton onClick={() => signIn()}>Login</AuthButton>*/}
+        {/*) : (*/}
+        {/*  <AuthButton onClick={() => signOut()}>Log Out</AuthButton>*/}
+        {/*)}*/}
       </ul>
-      {!session ? (
-        <AuthButton onClick={() => signIn()}>Login</AuthButton>
-      ) : (
-        <AuthButton onClick={() => signOut()}>Log Out</AuthButton>
-      )}
     </nav>
   )
 }
