@@ -33,17 +33,29 @@ const Home: NextPage = () => {
           <div className='mx-2 flex flex-1 flex-row gap-8 px-4 pb-14'>
             <ImageWithText
               alt='surrounding area'
-              imageSrc='/images/home-gallery/chateau-explore-area.jpg'
+              imageSrc={[
+                '/images/home-gallery/chateau-explore-area.jpg',
+                '/images/home-gallery/french-2.jpg',
+                '/images/home-gallery/pool-amenity.jpg',
+              ]}
               text={'Discover the area'}
             />
             <ImageWithText
               alt='view of the gites'
-              imageSrc='/images/home-gallery/french-2.jpg'
+              imageSrc={[
+                '/images/home-gallery/french-2.jpg',
+                '/images/home-gallery/pool-amenity.jpg',
+                '/images/home-gallery/chateau-explore-area.jpg',
+              ]}
               text={'Explore our gites'}
             />
             <ImageWithText
               alt='Pool and sunchairs'
-              imageSrc='/images/home-gallery/pool-amenity.jpg'
+              imageSrc={[
+                '/images/home-gallery/pool-amenity.jpg',
+                '/images/home-gallery/chateau-explore-area.jpg',
+                '/images/home-gallery/french-2.jpg',
+              ]}
               text={'Shared Spaces & Events'}
             />
           </div>
