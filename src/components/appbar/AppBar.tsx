@@ -44,7 +44,7 @@ const AppBar = () => {
         !isVisible ? '-top-52' : ''
       } z-20 flex w-full flex-row justify-center border-b-2 border-b-slate-300 bg-slate-100 py-2 transition-all duration-700`}
     >
-      <ul className='items-between flex flex-wrap items-center gap-24 self-center'>
+      <ul className='flex w-3/4 flex-wrap items-center justify-between self-center'>
         <NavItem>
           <Link href='/'>Home</Link>
         </NavItem>

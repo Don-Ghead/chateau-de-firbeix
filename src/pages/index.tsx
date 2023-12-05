@@ -1,7 +1,8 @@
 import type { NextPage } from 'next'
 import HorizontalDivider from '../components/horizontal-divider/HorizontalDivider'
 import Head from 'next/head'
-import InfoPanel from '../components/InfoPanel/InfoPanel'
+import InfoPanel from '../components/home/info-panel/InfoPanel'
+import ImageWithText from '../components/home/image-with-text/ImageWithText'
 
 const Home: NextPage = () => {
   return (
@@ -23,9 +24,28 @@ const Home: NextPage = () => {
             authentically French village of Firbeix surrounded by the
             picturesque countryside of the Dordogne.
           </p>
-          <HorizontalDivider />
-          <div className='pt-8 pb-14'>
+          <div className='w-1/3'>
+            <HorizontalDivider />
+          </div>
+          <div className='pt-8 pb-10'>
             <InfoPanel />
+          </div>
+          <div className='mx-2 flex flex-1 flex-row gap-8 px-4 pb-14'>
+            <ImageWithText
+              alt='surrounding area'
+              imageSrc='/images/home-gallery/chateau-explore-area.jpg'
+              text={'Discover the area'}
+            />
+            <ImageWithText
+              alt='view of the gites'
+              imageSrc='/images/home-gallery/french-2.jpg'
+              text={'Explore our gites'}
+            />
+            <ImageWithText
+              alt='Pool and sunchairs'
+              imageSrc='/images/home-gallery/pool-amenity.jpg'
+              text={'Shared Spaces & Events'}
+            />
           </div>
         </section>
       </main>

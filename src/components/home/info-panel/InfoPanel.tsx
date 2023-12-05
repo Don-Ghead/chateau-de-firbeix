@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
-import InfoCard from '../InfoCard/InfoCard'
+import InfoCard from '../info-card/InfoCard'
 import { FiMapPin } from 'react-icons/fi'
 import { FaSwimmingPool } from 'react-icons/fa'
 import { BsHouses } from 'react-icons/bs'
-import VerticalDivider from '../vertical-divider/VerticalDivider'
+import VerticalDivider from '../../vertical-divider/VerticalDivider'
 
 interface IInfoPanelProps {
   children?: ReactNode
