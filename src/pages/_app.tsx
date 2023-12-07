@@ -10,6 +10,8 @@ import type { Session } from 'next-auth'
 import '../styles/globals.css'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import AppBar from '../components/appbar/AppBar'
+import Head from 'next/head'
+import { AppBarVisibilityProvider } from '../components/appbar/AppBarVisibilityContext'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -17,8 +19,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <AppBar />
-      <Component {...pageProps} />
+      <AppBarVisibilityProvider>
+        <Head>
+          <title>Chateau de Firbeix</title>
+        </Head>
+        <AppBar />
+        <Component {...pageProps} />
+      </AppBarVisibilityProvider>
     </SessionProvider>
   )
 }

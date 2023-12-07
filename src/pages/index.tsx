@@ -7,9 +7,6 @@ import ImageWithText from '../components/home/image-with-text/ImageWithText'
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Chateau de Firbeix</title>
-      </Head>
       <header aria-label='wide angle view of the chateau'>
         <div className='h-screen w-full bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat' />
       </header>
@@ -32,16 +29,8 @@ const Home: NextPage = () => {
           </div>
           <div className='mx-2 flex flex-1 flex-row gap-8 px-4 pb-14'>
             <ImageWithText
-              alt='surrounding area'
-              imageSrc={[
-                '/images/home-gallery/chateau-explore-area.jpg',
-                '/images/home-gallery/french-2.jpg',
-                '/images/home-gallery/pool-amenity.jpg',
-              ]}
-              text={'Discover the area'}
-            />
-            <ImageWithText
               alt='view of the gites'
+              href='/gites'
               imageSrc={[
                 '/images/home-gallery/french-2.jpg',
                 '/images/home-gallery/pool-amenity.jpg',
@@ -50,7 +39,18 @@ const Home: NextPage = () => {
               text={'Explore our gites'}
             />
             <ImageWithText
+              alt='surrounding area'
+              href='/explore'
+              imageSrc={[
+                '/images/home-gallery/chateau-explore-area.jpg',
+                '/images/home-gallery/french-2.jpg',
+                '/images/home-gallery/pool-amenity.jpg',
+              ]}
+              text={'Discover the area'}
+            />
+            <ImageWithText
               alt='Pool and sunchairs'
+              href='/explore'
               imageSrc={[
                 '/images/home-gallery/pool-amenity.jpg',
                 '/images/home-gallery/chateau-explore-area.jpg',

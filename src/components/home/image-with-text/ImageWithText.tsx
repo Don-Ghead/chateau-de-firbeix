@@ -2,6 +2,7 @@ import Image, { ImageProps } from 'next/image'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import { useEffect, useRef, useState } from 'react'
 import HorizontalDivider from '../../horizontal-divider/HorizontalDivider'
+import Link from 'next/link'
 
 interface IImageWithTextProps {
   /**
@@ -14,21 +15,30 @@ interface IImageWithTextProps {
   imageSrc: string[]
   text: string
   alt: ImageProps['alt']
+  href: string
 }
 
-const ImageWithText = ({ text, alt, imageSrc }: IImageWithTextProps) => {
+const ImageWithText = ({ text, alt, imageSrc, href }: IImageWithTextProps) => {
   const [imageSrcIndex, setImageSrcIndex] = useState(0)
   const [intervalId, setIntervalId] = useState<undefined | NodeJS.Timer>(
     undefined
   )
+  const imageIndexRef = useRef(0)
 
+  useEffect(() => {
+    imageIndexRef.current = imageSrcIndex
+  }, [])
   const startImageRotation = () => {
     const numImages = imageSrc.length
     let interval
     if (numImages !== 1) {
+      // this is just so we change the image the first time we hover over an image
+      // and then we start the interval slideshow
       setImageSrcIndex(imageSrcIndex + 1)
       interval = setInterval(() => {
-        if (imageSrcIndex === numImages - 1) {
+        console.log(imageIndexRef.current)
+        if (imageIndexRef.current === numImages - 1) {
+          console.log('reset index')
           setImageSrcIndex(0)
         } else {
           setImageSrcIndex(prevState => prevState + 1)
@@ -45,22 +55,24 @@ const ImageWithText = ({ text, alt, imageSrc }: IImageWithTextProps) => {
   }
 
   return (
-    <div className='flex w-full min-w-min flex-col gap-3'>
-      <div
-        onMouseEnter={startImageRotation}
-        className='hover:shadow-md'
-        onMouseLeave={resetImageRotation}
-      >
-        <img alt={alt} src={imageSrc[imageSrcIndex]} />
+    <Link href={href}>
+      <div className='flex w-full min-w-min cursor-pointer flex-col gap-3'>
+        <div
+          onMouseEnter={startImageRotation}
+          className='hover:shadow-md'
+          onMouseLeave={resetImageRotation}
+        >
+          <img alt={alt} src={imageSrc[imageSrcIndex]} />
+        </div>
+        <div className='flex flex-row items-center justify-between'>
+          <p>{text.trim()}</p>
+          <FaArrowRightLong className={`h-6 min-w-max pr-1`} />
+        </div>
+        <div className='w-1/2'>
+          <HorizontalDivider />
+        </div>
       </div>
-      <div className='flex flex-row items-center justify-between'>
-        <p>{text.trim()}</p>
-        <FaArrowRightLong className={`h-6 min-w-max pr-1`} />
-      </div>
-      <div className='w-1/2'>
-        <HorizontalDivider />
-      </div>
-    </div>
+    </Link>
   )
 }
 

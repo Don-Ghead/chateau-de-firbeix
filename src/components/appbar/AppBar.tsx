@@ -1,7 +1,8 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
+import AppBarVisibilityContext from './AppBarVisibilityContext'
 
 const NavItem = ({ children }: { children: ReactNode }) => (
   <li className='font-primary text-2xl text-slate-700'>{children}</li>
@@ -20,7 +21,9 @@ const AuthButton = ({ onClick, children }: TAuthButtonProps) => (
 
 const AppBar = () => {
   const [lastScrollPos, setLastScrollPos] = useState(0)
-  const [isVisible, setIsVisible] = useState(true)
+  const { isAppBarVisible, setIsAppBarVisible } = useContext(
+    AppBarVisibilityContext
+  )
 
   const { data: session } = useSession()
 
@@ -29,7 +32,7 @@ const AppBar = () => {
       const currScrollPos = window.scrollY
       const visible = currScrollPos < lastScrollPos
 
-      setIsVisible(visible)
+      setIsAppBarVisible && setIsAppBarVisible(visible)
       setLastScrollPos(currScrollPos)
     }
 
@@ -41,7 +44,7 @@ const AppBar = () => {
   return (
     <nav
       className={`sticky top-0 block ${
-        !isVisible ? '-top-52' : ''
+        !isAppBarVisible ? '-top-52' : ''
       } z-20 flex w-full flex-row justify-center border-b-2 border-b-slate-300 bg-slate-100 py-2 transition-all duration-700`}
     >
       <ul className='flex w-3/4 flex-wrap items-center justify-between self-center'>
@@ -52,14 +55,14 @@ const AppBar = () => {
           <Link href='/gites'>Gites</Link>
         </NavItem>
         <Image
-          width={140}
-          height={80}
+          width={110}
+          height={60}
           src='/chateau-logo.png'
           alt='Chateau Logo'
           className='px-3'
         />
         <NavItem>
-          <Link href='/blogs'>News</Link>
+          <Link href='/explore'>Explore</Link>
         </NavItem>
         <NavItem>
           <Link href='/contact'>Contact</Link>
