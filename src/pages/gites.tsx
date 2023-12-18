@@ -1,10 +1,12 @@
 import { NextPage } from 'next'
-import AppBarVisibilityContext from '../components/appbar/AppBarVisibilityContext'
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import GiteImagePanel from '../components/gite-image-panel/GiteImagePanel'
+
+type TGite = 'arbres' | 'oiseaux' | 'papillons'
 
 const Gites: NextPage = () => {
-  const { setIsAppBarVisible } = useContext(AppBarVisibilityContext)
   const elementToScrollTo = useRef<null | HTMLDivElement>(null)
+  const [selectedGite, setSelectedGite] = useState<TGite | undefined>(undefined)
 
   const executeScroll = () =>
     elementToScrollTo.current?.scrollIntoView({
@@ -17,8 +19,9 @@ const Gites: NextPage = () => {
     executeScroll()
   }, [])
 
-  const unselectedTextClasses = 'text-l font-normal opacity-70'
-  const selectedTextClasses = ''
+  // TODO - Configure text to be selected/unselected styled
+  const unselectedTextClasses = 'text-xl font-semibold opacity-70'
+  const selectedTextClasses = 'font-bold text-2xl opacity-100'
 
   return (
     <main>
@@ -27,27 +30,31 @@ const Gites: NextPage = () => {
         aria-label='panels showing each gite and their names below'
         className='flex w-full flex-col'
       >
-        <div className='flex w-full flex-1 flex-row'>
-          <img
-            src='/images/home-gallery/pool-amenity.jpg'
-            alt='Image of Les Papillons'
-            className='h-[85vh] w-1/3 object-cover opacity-80 transition-all duration-200 hover:cursor-pointer hover:opacity-100'
+        <div className='flex w-full flex-1 flex-row text-xl font-semibold'>
+          <GiteImagePanel
+            onClick={() => setSelectedGite('papillons')}
+            isSelected={selectedGite === 'papillons'}
+            selectedClassName={selectedTextClasses}
+            imgSrc='/images/home-gallery/pool-amenity.jpg'
+            imgAlt='Image of Les Papillons'
+            giteText='Les Papillons'
           />
-          <img
-            src='/images/home-gallery/chateau-explore-area.jpg'
-            alt='Image of Les Oiseaux'
-            className='h-[85vh] w-1/3 object-cover opacity-80 transition-all duration-200 hover:cursor-pointer hover:opacity-100'
+          <GiteImagePanel
+            onClick={() => setSelectedGite('oiseaux')}
+            isSelected={selectedGite === 'oiseaux'}
+            selectedClassName={selectedTextClasses}
+            imgSrc='/images/home-gallery/chateau-explore-area.jpg'
+            imgAlt='Image of Les Oiseaux'
+            giteText='Les Oiseaux'
           />
-          <img
-            src='/images/home-gallery/french-2.jpg'
-            alt='Image of Les Arbres'
-            className='h-[85vh] w-1/3 object-cover opacity-80 transition-all duration-200 hover:cursor-pointer hover:opacity-100'
+          <GiteImagePanel
+            onClick={() => setSelectedGite('arbres')}
+            isSelected={selectedGite === 'arbres'}
+            selectedClassName={selectedTextClasses}
+            imgSrc='/images/home-gallery/french-2.jpg'
+            imgAlt='Image of Les Arbres'
+            giteText='Les Arbres'
           />
-        </div>
-        <div className='flex h-[15vh] w-full flex-row items-center justify-around text-xl font-semibold '>
-          <h4>Les Papillons</h4>
-          <h4>Les Oiseaux</h4>
-          <h4>Les Arbres</h4>
         </div>
       </section>
     </main>

@@ -26,6 +26,7 @@ It also uses AWS for storing uploaded images and blogs eventually so that they c
 ## Deployment
 
 At the moment it is unclear how it will be deployed, NextJS apps generally lend themselves well to being deployed with Vercel however there are alternatives such as Railway.
+Before making decision consult [this page](https://create.t3.gg/en/other-recs#deployments-infrastructure-databases-and-ci).
 
 ## Setup
 
