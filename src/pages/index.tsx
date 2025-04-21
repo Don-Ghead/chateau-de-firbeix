@@ -16,7 +16,7 @@ const Home: NextPage = () => {
           id='overview'
           className='flex h-full w-full flex-col items-center gap-5'
         >
-          <p className='w-3/5 pt-12 text-center text-3xl italic'>
+          <p className='w-3/5 pt-12 text-center text-3xl italic text-chateau-secondary'>
             A beautiful piece of 14th century French history residing in the
             authentically French village of Firbeix surrounded by the
             picturesque countryside of the Dordogne.

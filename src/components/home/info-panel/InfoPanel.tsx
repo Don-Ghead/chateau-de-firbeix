@@ -10,7 +10,7 @@ interface IInfoPanelProps {
 }
 
 const InfoPanel = ({ children }: IInfoPanelProps) => (
-  <div className='flex items-center bg-slate-200 py-6'>
+  <div className='flex items-center bg-chateau-primary py-6'>
     <InfoCard
       Icon={FiMapPin}
       text={

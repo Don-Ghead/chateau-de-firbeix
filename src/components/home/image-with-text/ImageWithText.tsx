@@ -59,14 +59,14 @@ const ImageWithText = ({ text, alt, imageSrc, href }: IImageWithTextProps) => {
       <div className='flex w-full min-w-min cursor-pointer flex-col gap-3'>
         <div
           onMouseEnter={startImageRotation}
-          className='hover:shadow-md'
+          className='hover:shadow-md transition-shadow duration-300'
           onMouseLeave={resetImageRotation}
         >
           <img alt={alt} src={imageSrc[imageSrcIndex]} />
         </div>
         <div className='flex flex-row items-center justify-between'>
-          <p>{text.trim()}</p>
-          <FaArrowRightLong className={`h-6 min-w-max pr-1`} />
+          <p className='text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'>{text.trim()}</p>
+          <FaArrowRightLong className='h-6 min-w-max pr-1 text-chateau-secondary transition-colors duration-300 hover:text-opacity-75' />
         </div>
         <div className='w-1/2'>
           <HorizontalDivider />

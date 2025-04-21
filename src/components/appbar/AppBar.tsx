@@ -1,11 +1,13 @@
 import { ReactNode, useContext, useEffect, useState } from 'react'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import AppBarVisibilityContext from './AppBarVisibilityContext'
 
 const NavItem = ({ children }: { children: ReactNode }) => (
-  <li className='font-primary text-2xl text-slate-700'>{children}</li>
+  <li className='font-primary text-2xl font-semibold text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'>
+    {children}
+  </li>
 )
 
 type TAuthButtonProps = {
@@ -14,7 +16,10 @@ type TAuthButtonProps = {
 }
 
 const AuthButton = ({ onClick, children }: TAuthButtonProps) => (
-  <button className='font-primary text-2xl text-slate-700' onClick={onClick}>
+  <button
+    className='font-primary text-2xl font-semibold text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'
+    onClick={onClick}
+  >
     {children}
   </button>
 )
@@ -45,7 +50,7 @@ const AppBar = () => {
     <nav
       className={`sticky top-0 block ${
         !isAppBarVisible ? '-top-52' : ''
-      } z-20 flex w-full flex-row justify-center border-b-2 border-b-slate-300 bg-slate-100 py-2 transition-all duration-700`}
+      } z-20 flex w-full flex-row justify-center border-b border-chateau-accent bg-chateau-primary py-2 transition-all duration-700`}
     >
       <ul className='flex w-3/4 flex-wrap items-center justify-between self-center'>
         <NavItem>

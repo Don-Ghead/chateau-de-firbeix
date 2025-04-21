@@ -1,9 +1,6 @@
-import HorizontalDivider from '../horizontal-divider/HorizontalDivider'
-
 interface IGiteImagePanelProps {
   onClick: () => void
   isSelected: boolean | undefined
-  selectedClassName: string
   imgSrc: string
   imgAlt: string
   giteText: string
@@ -12,33 +9,31 @@ interface IGiteImagePanelProps {
 const GiteImagePanel = ({
   onClick,
   isSelected,
-  selectedClassName,
   imgSrc,
   imgAlt,
   giteText,
 }: IGiteImagePanelProps) => (
-  <div className={'flex flex-col items-center'}>
+  <div
+    className={`relative h-[85vh] transition-all duration-500 ${
+      isSelected ? 'w-4/5' : 'w-1/3'
+    }`}
+  >
     <img
       src={imgSrc}
       alt={imgAlt}
-      className={`h-[85vh] w-full object-cover ${
+      className={`h-full w-full object-cover ${
         isSelected ? 'opacity-100' : 'opacity-70'
       } transition-all duration-200 hover:cursor-pointer hover:opacity-100`}
       onClick={onClick}
     />
     <div
-      className={`flex h-[15vh] flex-col justify-center ${
-        isSelected === false ? 'opacity-70' : 'opacity-100'
+      className={`absolute left-0 w-full transform bg-chateau-primary py-4 transition-all duration-1000 ${
+        isSelected ? 'bottom-0 translate-y-0' : 'top-1/2 -translate-y-1/2'
       }`}
     >
-      <h4
-        className={`transition-all duration-100 ${
-          isSelected ? selectedClassName : ''
-        }`}
-      >
+      <h4 className='text-center text-3xl font-semibold text-chateau-secondary'>
         {giteText}
       </h4>
-      {isSelected && <HorizontalDivider />}
     </div>
   </div>
 )

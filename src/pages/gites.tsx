@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import { useEffect, useRef, useState } from 'react'
 import GiteImagePanel from '../components/gite-image-panel/GiteImagePanel'
+import GiteDetails from '../components/gite-image-panel/GiteDetails'
 
 type TGite = 'arbres' | 'oiseaux' | 'papillons'
 
@@ -30,11 +31,10 @@ const Gites: NextPage = () => {
         aria-label='panels showing each gite and their names below'
         className='flex w-full flex-col'
       >
-        <div className='flex w-full flex-1 flex-row text-xl font-semibold'>
+        <div className='flex w-full flex-1 flex-row justify-center text-xl font-semibold'>
           <GiteImagePanel
             onClick={() => setSelectedGite('papillons')}
             isSelected={selectedGite === 'papillons'}
-            selectedClassName={selectedTextClasses}
             imgSrc='/images/home-gallery/pool-amenity.jpg'
             imgAlt='Image of Les Papillons'
             giteText='Les Papillons'
@@ -42,7 +42,6 @@ const Gites: NextPage = () => {
           <GiteImagePanel
             onClick={() => setSelectedGite('oiseaux')}
             isSelected={selectedGite === 'oiseaux'}
-            selectedClassName={selectedTextClasses}
             imgSrc='/images/home-gallery/chateau-explore-area.jpg'
             imgAlt='Image of Les Oiseaux'
             giteText='Les Oiseaux'
@@ -50,12 +49,16 @@ const Gites: NextPage = () => {
           <GiteImagePanel
             onClick={() => setSelectedGite('arbres')}
             isSelected={selectedGite === 'arbres'}
-            selectedClassName={selectedTextClasses}
             imgSrc='/images/home-gallery/french-2.jpg'
             imgAlt='Image of Les Arbres'
             giteText='Les Arbres'
           />
         </div>
+        {selectedGite && (
+          <div className='w-full'>
+            <GiteDetails giteName={selectedGite} />
+          </div>
+        )}
       </section>
     </main>
   )
