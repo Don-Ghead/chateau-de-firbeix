@@ -28,24 +28,30 @@ const GiteDetails = ({ giteName }: IGiteDetailsProps) => {
   ]
 
   return (
-    <div className='flex w-full flex-col gap-8 pb-8'>
-      <GiteInfoPanel />
-        
+    <div className='flex w-full flex-col gap-8 py-8'>
       <div className='flex w-full justify-center'>
-          <ImageGallery images={images} />
+        <ImageGallery images={images} />
       </div>
-      
-      <div className='prose w-2/3 px-8 text-chateau-secondary self-center'>
+
+      <GiteInfoPanel />
+
+      <div className='prose w-2/3 self-center px-8 text-chateau-secondary'>
         <h2 className='text-2xl font-bold'>Description</h2>
         <p className='text-lg'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
         </p>
         <p className='text-lg'>
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum.
         </p>
       </div>
     </div>
   )
 }
 
-export default GiteDetails 
+export default GiteDetails
