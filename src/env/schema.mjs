@@ -15,10 +15,6 @@ export const serverSchema = z.object({
   NEXTAUTH_URL: z.string().url(),
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
-  AWS_SDK_ACCESS_KEY: z.string(),
-  AWS_SDK_SECRET: z.string(),
-  AWS_REGION: z.string(),
-  AWS_S3_BUCKET_NAME: z.string(),
 })
 
 /**
@@ -28,7 +24,6 @@ export const serverSchema = z.object({
  */
 export const clientSchema = z.object({
   NEXT_PUBLIC_NODE_ENV: z.enum(['development', 'test', 'production']),
-  NEXT_PUBLIC_S3_BUCKET_NAME: z.string(),
 })
 
 /**
@@ -39,5 +34,4 @@ export const clientSchema = z.object({
  */
 export const clientEnv = {
   NEXT_PUBLIC_NODE_ENV: process.env.NODE_ENV,
-  NEXT_PUBLIC_S3_BUCKET_NAME: process.env.NEXT_PUBLIC_S3_BUCKET_NAME,
 }

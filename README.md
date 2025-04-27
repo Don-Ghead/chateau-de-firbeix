@@ -43,13 +43,6 @@ NEXTAUTH_URL=http://localhost:3000
 # NextAuth Google Provider
 GOOGLE_CLIENT_ID= //NOT SHARED PUBLICLY
 GOOGLE_CLIENT_SECRET= //NOT SHARED PUBLICLY
-
-# AWS AccessKeys
-AWS_SDK_ACCESS_KEY= //NOT SHARED PUBLICLY
-AWS_SDK_SECRET= //NOT SHARED PUBLICLY
-AWS_REGION=eu-west-2
-AWS_S3_BUCKET_NAME=chateau-blog-images
-NEXT_PUBLIC_S3_BUCKET_NAME=chateau-blog-images
 ```
 
 2. Run `yarn install` to install packages
