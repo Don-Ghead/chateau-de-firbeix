@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import HorizontalDivider from '../components/horizontal-divider/HorizontalDivider'
-import Head from 'next/head'
 import InfoPanel from '../components/home/info-panel/InfoPanel'
 import ImageWithText from '../components/home/image-with-text/ImageWithText'
 

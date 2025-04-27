@@ -5,7 +5,7 @@ import Image from 'next/image'
 import AppBarVisibilityContext from './AppBarVisibilityContext'
 
 const NavItem = ({ children }: { children: ReactNode }) => (
-  <li className='font-primary text-2xl font-semibold text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'>
+  <li className='text-2xl font-semibold text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'>
     {children}
   </li>
 )
@@ -17,7 +17,7 @@ type TAuthButtonProps = {
 
 const AuthButton = ({ onClick, children }: TAuthButtonProps) => (
   <button
-    className='font-primary text-2xl font-semibold text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'
+    className='text-2xl font-semibold text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'
     onClick={onClick}
   >
     {children}

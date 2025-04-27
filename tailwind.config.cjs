@@ -1,10 +1,18 @@
+const defaultTheme = require('tailwindcss/defaultTheme') // Import default theme
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    // Define fontFamily directly under theme to override defaults
+    fontFamily: {
+      // Set Montserrat as the default sans-serif font
+      sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+    },
     extend: {
       fontFamily: { 
-        primary: 'Montserrat', 
+        // Keep specific named fonts here if needed, e.g., for titles
+        // primary: 'Montserrat', // Can remove this if 'sans' is default
         title: 'Gwendolyn'
       },
       backgroundImage: {
@@ -23,5 +31,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
