@@ -5,7 +5,7 @@ import Image from 'next/image'
 import AppBarVisibilityContext from './AppBarVisibilityContext'
 
 const NavItem = ({ children }: { children: ReactNode }) => (
-  <li className='text-2xl font-semibold text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'>
+  <li className='text-3xl text-chateau-secondary transition-colors duration-300 hover:text-opacity-75'>
     {children}
   </li>
 )
@@ -50,7 +50,7 @@ const AppBar = () => {
     <nav
       className={`sticky top-0 block ${
         !isAppBarVisible ? '-top-52' : ''
-      } z-20 flex w-full flex-row justify-center border-b border-chateau-accent bg-chateau-primary py-2 transition-all duration-700`}
+      } z-20 flex w-full flex-row justify-center border-b border-chateau-accent bg-chateau-primary bg-opacity-90 py-2 font-title text-2xl transition-all duration-700`}
     >
       <ul className='flex w-3/4 flex-wrap items-center justify-between self-center'>
         <NavItem>

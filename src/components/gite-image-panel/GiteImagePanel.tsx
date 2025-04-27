@@ -1,17 +1,15 @@
+import { GiteListingDetails } from './giteDetailsMap'
+
 interface IGiteImagePanelProps {
   onClick: () => void
   isSelected: boolean | undefined
-  imgSrc: string
-  imgAlt: string
-  giteText: string
+  giteDetails: Partial<GiteListingDetails>
 }
 
 const GiteImagePanel = ({
   onClick,
   isSelected,
-  imgSrc,
-  imgAlt,
-  giteText,
+  giteDetails,
 }: IGiteImagePanelProps) => (
   <div
     className={`relative h-[85vh] transition-all duration-500 ${
@@ -19,8 +17,8 @@ const GiteImagePanel = ({
     }`}
   >
     <img
-      src={imgSrc}
-      alt={imgAlt}
+      src={giteDetails.mainImageHref}
+      alt={`Image of ${giteDetails.name}`}
       className={`h-full w-full object-cover ${
         isSelected ? 'opacity-100' : 'opacity-70'
       } transition-all duration-200 hover:cursor-pointer hover:opacity-100`}
@@ -32,7 +30,7 @@ const GiteImagePanel = ({
       }`}
     >
       <h4 className='text-center text-3xl font-semibold text-chateau-secondary'>
-        {giteText}
+        {giteDetails.name}
       </h4>
     </div>
   </div>

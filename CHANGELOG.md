@@ -12,6 +12,10 @@ _Each entry contains the changes made between the last time it was deployed._
 #### Added
 
 - Changelog page
+- Added link to Instagram on homepage
+- Changed the home page so that it displays less of the image and the top of the content
+- Added embed link to AirBnB listings for each gite (this looks to be broken and 404 atm, AirBnB are aware)
+- Copied descriptions from AirBnB for each gite listing (Unformatted for now)
 
 ---
 

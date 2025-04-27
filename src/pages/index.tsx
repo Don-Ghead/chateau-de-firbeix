@@ -6,16 +6,13 @@ import ImageWithText from '../components/home/image-with-text/ImageWithText'
 const Home: NextPage = () => {
   return (
     <>
-      <header aria-label='wide angle view of the chateau'>
-        <div className='h-screen w-full bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat' />
-      </header>
-      <main className='mx-auto flex flex-col items-center'>
-        <section
-          aria-label='overview of the chateau'
-          id='overview'
-          className='flex h-full w-full flex-col items-center gap-5'
-        >
-          <p className='w-3/5 pt-12 text-center text-3xl italic text-chateau-secondary'>
+      {/* Main viewport wrapper */}
+      <div className='flex h-[85vh] w-full flex-col'>
+        {/* Image takes remaining space */}
+        <div className='w-full flex-grow bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat' />
+        {/* Content section (blurb, divider, insta) */}
+        <div className='flex flex-col items-center gap-4 p-6'>
+          <p className='w-3/5 text-center text-3xl italic text-chateau-secondary'>
             A beautiful piece of 14th century French history residing in the
             authentically French village of Firbeix surrounded by the
             picturesque countryside of the Dordogne.
@@ -23,7 +20,36 @@ const Home: NextPage = () => {
           <div className='w-1/3'>
             <HorizontalDivider />
           </div>
-          <div className='pt-8 pb-10'>
+          <div
+            className='bg-gradient-to-r from-yellow-500 via-pink-500
+                        to-purple-600 bg-clip-text py-2
+                        font-semibold text-transparent 
+                        transition-opacity duration-300 hover:opacity-80'
+          >
+            <a
+              href='https://www.instagram.com/chateaudefirbeix/'
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='Chateau de Firbeix on Instagram'
+              className='flex flex-row items-center gap-4'
+            >
+              <img
+                src='/Instagram_icon.png'
+                alt='Instagram logo'
+                className='h-12 w-12'
+              />
+              <p className='font-title text-4xl'>Chateau de Firbeix</p>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <main className='mx-auto flex flex-col items-center'>
+        <section
+          id='overview'
+          className='flex h-full w-full flex-col items-center gap-5 pt-5'
+        >
+          <div className='pt-2 pb-10'>
             <InfoPanel />
           </div>
           <div className='mx-2 flex flex-1 flex-row gap-8 px-4 pb-14'>
@@ -45,7 +71,7 @@ const Home: NextPage = () => {
                 '/images/home-gallery/french-2.jpg',
                 '/images/home-gallery/pool-amenity.jpg',
               ]}
-              text={'Discover the area'}
+              text={'Events'}
             />
             <ImageWithText
               alt='Pool and sunchairs'
@@ -55,7 +81,7 @@ const Home: NextPage = () => {
                 '/images/home-gallery/chateau-explore-area.jpg',
                 '/images/home-gallery/french-2.jpg',
               ]}
-              text={'Shared Spaces & Events'}
+              text={'Shared Spaces & Amenities'}
             />
           </div>
         </section>

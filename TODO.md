@@ -8,6 +8,7 @@
 
 ## Misc
 
+- [ ] Host all images in the application on AWS & Update all image src
 - Clean up home-content-section [UNUSED]
 - Upgrade to TRPC v10 (https://github.com/sachinraja/trpc-v10-migrate-codemod)
 -
@@ -20,34 +21,38 @@
 
 ### TODO 
 
-- M&D to send me Pictures & Chateau logo (Transparent PNG)
-- Host website so M&D can look at it
+- M&D to send
+    - [ ] Pictures
+    - [x] Font
+    - [x] New Logo
+- [x] Host website so M&D can look at it
 
 ### Home Page
 
-- Once pictures received, bring up the content so it shows the blurb over the image
-- 3 pictures are going to be Gites, Shared Spaces/Amenities, Events Venue
-- link to instagram
+- [x] bring up the content so it shows the blurb over the image
+- [x] 3 pictures are going to be Gites, Shared Spaces/Amenities, Events Venue
+- [x] link to instagram
 
 ### Gites
 
-- Add links to Airbnb listing for each respective gite for booking
-- Copy description & information from Airbnb
+- [x] Add links to Airbnb listing for each respective gite for booking
+- [x] Copy description from Airbnb
+- [ ] Copy basic information (num rooms, amenities, etc.) from AirBnb
 
 ### Explore 
 
-- Add gallery to each section/scrolling background picture if possible
+- [ ] Add gallery to each section/scrolling background picture if possible
 
 ### Contact
 
-- Add name, phone, email, address, any business nonsense
+- [ ] Add name, phone, email, address, any business nonsense
 
 ### Events
 
-- Plenty of pictures
-- Blurb
-- Examples of previous events
-- Pricing/tariffs table
+- [ ] Plenty of pictures
+- [ ] Blurb
+- [ ] Examples of previous events
+- [ ] Pricing/tariffs table
 
 # Out of date
 

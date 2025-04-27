@@ -2,12 +2,14 @@ import { NextPage } from 'next'
 import { useEffect, useRef, useState } from 'react'
 import GiteImagePanel from '../components/gite-image-panel/GiteImagePanel'
 import GiteDetails from '../components/gite-image-panel/GiteDetails'
-
-type TGite = 'arbres' | 'oiseaux' | 'papillons'
+import {
+  Gite,
+  giteDetailsMap,
+} from '../components/gite-image-panel/giteDetailsMap'
 
 const Gites: NextPage = () => {
   const elementToScrollTo = useRef<null | HTMLDivElement>(null)
-  const [selectedGite, setSelectedGite] = useState<TGite | undefined>(undefined)
+  const [selectedGite, setSelectedGite] = useState<Gite | undefined>(undefined)
 
   const executeScroll = () =>
     elementToScrollTo.current?.scrollIntoView({
@@ -20,10 +22,6 @@ const Gites: NextPage = () => {
     executeScroll()
   }, [])
 
-  // TODO - Configure text to be selected/unselected styled
-  const unselectedTextClasses = 'text-xl font-semibold opacity-70'
-  const selectedTextClasses = 'font-bold text-2xl opacity-100'
-
   return (
     <main>
       <section
@@ -35,23 +33,17 @@ const Gites: NextPage = () => {
           <GiteImagePanel
             onClick={() => setSelectedGite('papillons')}
             isSelected={selectedGite === 'papillons'}
-            imgSrc='/images/home-gallery/pool-amenity.jpg'
-            imgAlt='Image of Les Papillons'
-            giteText='Les Papillons'
+            giteDetails={giteDetailsMap.papillons}
           />
           <GiteImagePanel
             onClick={() => setSelectedGite('oiseaux')}
             isSelected={selectedGite === 'oiseaux'}
-            imgSrc='/images/home-gallery/chateau-explore-area.jpg'
-            imgAlt='Image of Les Oiseaux'
-            giteText='Les Oiseaux'
+            giteDetails={giteDetailsMap.oiseaux}
           />
           <GiteImagePanel
-            onClick={() => setSelectedGite('arbres')}
-            isSelected={selectedGite === 'arbres'}
-            imgSrc='/images/home-gallery/french-2.jpg'
-            imgAlt='Image of Les Arbres'
-            giteText='Les Arbres'
+            onClick={() => setSelectedGite('both')}
+            isSelected={selectedGite === 'both'}
+            giteDetails={giteDetailsMap.both}
           />
         </div>
         {selectedGite && (
