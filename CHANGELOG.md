@@ -9,14 +9,14 @@ _Each entry contains the changes made between the last time it was deployed._
 
 ### [0.1.2] - 05/05/2025
 
-### Added
+#### Added
 
 - Basic contact page details
 - Google maps Embed
 - Contact us form
   - Need to setup a google workspace using a custom domain (we can chat about this)
 
-### Changed
+#### Changed
 
 - Formatted the Airbnb descriptions
 - Moved logo out of top navbar (not thrilled with it as is right now, need to mess around with it, ideas welcome!)
