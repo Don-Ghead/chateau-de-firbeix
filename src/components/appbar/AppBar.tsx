@@ -1,7 +1,6 @@
 import { ReactNode, useContext, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import Image from 'next/image'
 import AppBarVisibilityContext from './AppBarVisibilityContext'
 
 const NavItem = ({ children }: { children: ReactNode }) => (
@@ -50,7 +49,7 @@ const AppBar = () => {
     <nav
       className={`sticky top-0 block ${
         !isAppBarVisible ? '-top-52' : ''
-      } z-20 flex w-full flex-row justify-center border-b border-chateau-accent bg-chateau-primary bg-opacity-90 py-2 font-title text-2xl transition-all duration-700`}
+      } z-20 flex w-full flex-row justify-center border-b border-chateau-accent bg-chateau-primary bg-opacity-90 py-3 font-title text-xl transition-all duration-700`}
     >
       <ul className='flex w-3/4 flex-wrap items-center justify-between self-center'>
         <NavItem>
@@ -59,13 +58,9 @@ const AppBar = () => {
         <NavItem>
           <Link href='/gites'>Gites</Link>
         </NavItem>
-        <Image
-          width={110}
-          height={60}
-          src='/chateau-logo.png'
-          alt='Chateau Logo'
-          className='px-3'
-        />
+        <NavItem>
+          <Link href='/events'>Events</Link>
+        </NavItem>
         <NavItem>
           <Link href='/explore'>Explore</Link>
         </NavItem>

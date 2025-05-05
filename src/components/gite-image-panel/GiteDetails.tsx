@@ -72,7 +72,10 @@ const GiteDetails = ({ giteName }: IGiteDetailsProps) => {
 
       <div className='w-2/3 self-center px-8 text-chateau-secondary'>
         <h2 className='pb-4 text-3xl font-bold'>About this space</h2>
-        <p className='text-lg'>{about}</p>
+        <div 
+          className='text-lg prose prose-lg max-w-none prose-headings:text-chateau-secondary prose-p:text-chateau-secondary prose-strong:text-chateau-secondary prose-ul:text-chateau-secondary prose-li:text-chateau-secondary'
+          dangerouslySetInnerHTML={{ __html: about || '' }}
+        />
       </div>
     </div>
   )

@@ -1,14 +1,11 @@
 # Features
 
-## Homepage
-
-- Limit height on infopanel cards & make them wrap properly
-- Make Appbar nicer for smaller screens
-- Make images with text container friendly for smaller screens
-
 ## Misc
 
 - [ ] Host all images in the application on AWS & Update all image src
+- [ ] Update favicon.ico
+- [ ] Add production website link to google maps
+- [ ] Make mobile friendly
 - Clean up home-content-section [UNUSED]
 - Upgrade to TRPC v10 (https://github.com/sachinraja/trpc-v10-migrate-codemod)
 -
@@ -38,6 +35,8 @@
 - [x] Add links to Airbnb listing for each respective gite for booking
 - [x] Copy description from Airbnb
 - [ ] Copy basic information (num rooms, amenities, etc.) from AirBnb
+- [ ] Format the blurbs for each gite
+- [ ] *Idea* Reviews/Review section?
 
 ### Explore 
 

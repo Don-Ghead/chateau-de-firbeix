@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import HorizontalDivider from '../components/horizontal-divider/HorizontalDivider'
 import InfoPanel from '../components/home/info-panel/InfoPanel'
 import ImageWithText from '../components/home/image-with-text/ImageWithText'
@@ -8,8 +9,22 @@ const Home: NextPage = () => {
     <>
       {/* Main viewport wrapper */}
       <div className='flex h-[85vh] w-full flex-col'>
-        {/* Image takes remaining space */}
-        <div className='w-full flex-grow bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat' />
+        {/* Image container - Make it relative */}
+        <div className='relative w-full flex-grow bg-chateau-home bg-cover bg-fixed bg-center bg-no-repeat'>
+          {/* Centering using absolute positioning and transform */}
+          <div className='absolute top-0 left-1/2 -translate-x-1/2'>
+            {/* Use next/image for the logo with primary background */}
+            <Image
+              className='bg-chateau-primary bg-opacity-80'
+              src='/chateau-logo.png'
+              alt='Chateau de Firbeix Logo'
+              layout='intrinsic'
+              width={270}
+              height={185}
+              priority
+            />
+          </div>
+        </div>
         {/* Content section (blurb, divider, insta) */}
         <div className='flex flex-col items-center gap-4 p-6'>
           <p className='w-3/5 text-center text-3xl italic text-chateau-secondary'>
